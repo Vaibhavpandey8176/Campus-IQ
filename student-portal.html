@@ -1,0 +1,1157 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Student Academic & Advising Portal | CampusIQ</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500;600&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg-slate: #edf2f7;
+      --navy-900: #0d1e38;
+      --navy-800: #142a4a;
+      --navy-700: #1c3864;
+      --blue-accent: #1d4ed8;
+      --teal-accent: #0f766e;
+      --amber-accent: #b45309;
+      --rose-accent: #be123c;
+      --card-bg: #ffffff;
+      --border: #d2d9e4;
+      --border-subtle: #e2e8f0;
+      --text-main: #0f172a;
+      --text-muted: #526075;
+      --font-main: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      --font-mono: 'JetBrains Mono', monospace;
+    }
+
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      min-height: 100vh;
+      background: var(--bg-slate);
+      color: var(--text-main);
+      font: 14px/1.55 var(--font-main);
+      -webkit-font-smoothing: antialiased;
+    }
+    a { color: var(--blue-accent); text-decoration: none; font-weight: 600; }
+    a:hover { text-decoration: underline; }
+    button, input { font: inherit; }
+    .wrap { max-width: 1340px; margin: auto; padding: 0 20px 50px; }
+
+    /* Top Masthead */
+    header {
+      position: sticky;
+      top: 0;
+      z-index: 50;
+      background: var(--navy-900);
+      color: #ffffff;
+      box-shadow: 0 4px 16px rgba(13,30,56,0.18);
+    }
+    .top-bar {
+      border-bottom: 1px solid rgba(255,255,255,0.12);
+      padding: 6px 0;
+      font-size: 11px;
+      color: #cbd5e1;
+    }
+    .top-bar .wrap {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding-bottom: 0;
+    }
+    .main-nav {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 12px 0 8px;
+    }
+    .brand-wrap {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      text-decoration: none;
+      color: #ffffff;
+    }
+    .brand-icon {
+      width: 36px;
+      height: 36px;
+      border-radius: 8px;
+      background: linear-gradient(135deg, #1d4ed8, #0f766e);
+      border: 1px solid rgba(255,255,255,0.25);
+      display: grid;
+      place-items: center;
+      font-weight: 800;
+      font-size: 17px;
+      color: #ffffff;
+    }
+    .brand-titles h2 {
+      font-size: 18px;
+      font-weight: 800;
+      color: #ffffff;
+      margin: 0;
+      line-height: 1.1;
+    }
+    .brand-titles p {
+      font-size: 11px;
+      color: #94a3b8;
+      font-weight: 500;
+      margin: 0;
+    }
+    .navright {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+    .header-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      border: 1px solid rgba(255,255,255,0.22);
+      border-radius: 8px;
+      background: rgba(255,255,255,0.08);
+      color: #f1f5f9;
+      padding: 9px 16px;
+      font-size: 13px;
+      font-weight: 600;
+      cursor: pointer;
+      text-decoration: none;
+      transition: all 0.22s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    .header-btn:hover {
+      background: rgba(255,255,255,0.18);
+      border-color: rgba(255,255,255,0.4);
+      color: #ffffff;
+      transform: translateY(-1.5px);
+      box-shadow: 0 4px 14px rgba(0,0,0,0.2);
+    }
+    .header-btn:active {
+      transform: translateY(0);
+      box-shadow: 0 1px 4px rgba(0,0,0,0.1);
+    }
+    @keyframes pulseGlow {
+      0% {
+        transform: scale(0.95);
+        box-shadow: 0 0 0 0 rgba(34, 197, 94, 0.7);
+      }
+      70% {
+        transform: scale(1.05);
+        box-shadow: 0 0 0 7px rgba(34, 197, 94, 0);
+      }
+      100% {
+        transform: scale(0.95);
+        box-shadow: 0 0 0 0 rgba(34, 197, 94, 0);
+      }
+    }
+    .pulse-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: #22c55e;
+      display: inline-block;
+      flex-shrink: 0;
+      animation: pulseGlow 2s infinite cubic-bezier(0.4, 0, 0.6, 1);
+    }
+
+    /* Tabs Bar (Evenly distributed across width — No dead space!) */
+    .portal-tabs {
+      display: flex;
+      gap: 8px;
+      overflow-x: auto;
+      padding: 8px 0 12px;
+      scrollbar-width: thin;
+      border-top: 1px solid rgba(255,255,255,0.12);
+      width: 100%;
+    }
+    .portal-tab {
+      flex: 1 1 0;
+      min-width: 180px;
+      max-width: 255px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      background: rgba(255,255,255,0.06);
+      border: 1px solid rgba(255,255,255,0.12);
+      border-radius: 8px;
+      padding: 12px 18px;
+      font-size: 13.5px;
+      font-weight: 600;
+      color: #cbd5e1;
+      cursor: pointer;
+      white-space: nowrap;
+      transition: all 0.22s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    .portal-tab svg {
+      width: 16px;
+      height: 16px;
+      stroke: currentColor;
+      fill: none;
+      stroke-width: 2;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+      flex-shrink: 0;
+      transition: transform 0.2s ease;
+    }
+    .portal-tab:hover {
+      background: rgba(255,255,255,0.15);
+      border-color: rgba(255,255,255,0.28);
+      color: #ffffff;
+      transform: translateY(-1.5px);
+    }
+    .portal-tab:hover svg {
+      transform: scale(1.08);
+    }
+    .portal-tab:active {
+      transform: translateY(0);
+    }
+    .portal-tab.active {
+      background: #ffffff;
+      color: var(--navy-900);
+      font-weight: 700;
+      border-color: #ffffff;
+      box-shadow: 0 4px 14px rgba(0,0,0,0.18);
+      transform: translateY(-1px);
+    }
+    .portal-tab.active svg { stroke: var(--blue-accent); }
+
+    /* Section Pages with Smooth Slide-Fade Animation */
+    @keyframes pageSlideFade {
+      0% {
+        opacity: 0;
+        transform: translateY(10px);
+      }
+      100% {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+    .portal-page { display: none; padding-top: 24px; }
+    .portal-page.active {
+      display: block;
+      animation: pageSlideFade 0.28s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+    }
+
+    /* Section Header */
+    .sec-header {
+      margin-bottom: 20px;
+      padding-bottom: 14px;
+      border-bottom: 2px solid var(--border);
+    }
+    .sec-header .eyebrow {
+      font-size: 11px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: .06em;
+      color: var(--blue-accent);
+      margin-bottom: 3px;
+      display: block;
+    }
+    .sec-header h1 {
+      font-size: 24px;
+      font-weight: 700;
+      color: var(--navy-900);
+      letter-spacing: -.02em;
+    }
+    .sec-header p {
+      color: var(--text-muted);
+      font-size: 13px;
+      margin-top: 4px;
+    }
+
+    /* Grid Layouts (Full-width, never squish) */
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(12, 1fr);
+      gap: 16px;
+      margin-bottom: 16px;
+    }
+    .s3 { grid-column: span 3; }
+    .s4 { grid-column: span 4; }
+    .s5 { grid-column: span 5; }
+    .s6 { grid-column: span 6; }
+    .s7 { grid-column: span 7; }
+    .s8 { grid-column: span 8; }
+    .s12 { grid-column: span 12; }
+
+    .card {
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 20px;
+      box-shadow: 0 1px 3px rgba(15,23,42,0.06), 0 6px 16px rgba(15,23,42,0.03);
+      min-width: 0;
+      transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.25s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.2s ease;
+    }
+    .card:hover {
+      border-color: #cbd5e1;
+      box-shadow: 0 6px 20px rgba(15,23,42,0.08), 0 1px 4px rgba(15,23,42,0.04);
+    }
+    .card h3 {
+      font-size: 16px;
+      font-weight: 700;
+      color: var(--navy-900);
+      margin: 0 0 4px;
+    }
+    .small { font-size: 12px; color: var(--text-muted); margin: 2px 0 14px; }
+
+    /* Profile Card */
+    .profile { display: flex; gap: 16px; align-items: center; }
+    .avatar {
+      width: 58px;
+      height: 58px;
+      border-radius: 8px;
+      display: grid;
+      place-items: center;
+      background: var(--navy-900);
+      color: #ffffff;
+      font-size: 20px;
+      font-weight: 800;
+      flex: none;
+    }
+    .details {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 12px;
+      margin-top: 16px;
+    }
+    .detail {
+      padding: 10px 12px;
+      border: 1px solid var(--border-subtle);
+      background: #f8fafc;
+      border-radius: 6px;
+    }
+    .detail label {
+      display: block;
+      color: var(--text-muted);
+      font-size: 10px;
+      text-transform: uppercase;
+      font-weight: 700;
+      margin-bottom: 2px;
+    }
+    .detail b { font-size: 13px; color: var(--navy-900); }
+
+    /* Metrics */
+    .metric { display: flex; align-items: center; gap: 14px; }
+    .metric strong {
+      display: block;
+      font-size: 26px;
+      font-weight: 800;
+      color: var(--navy-900);
+      line-height: 1.1;
+      letter-spacing: -.02em;
+    }
+    .metric span {
+      font-size: 11px;
+      text-transform: uppercase;
+      font-weight: 600;
+      color: var(--text-muted);
+    }
+    .bar {
+      height: 7px;
+      background: #e2e8f0;
+      border-radius: 4px;
+      overflow: hidden;
+      margin: 6px 0 10px;
+    }
+    .bar i {
+      display: block;
+      height: 100%;
+      border-radius: 4px;
+      background: var(--blue-accent);
+      transition: width 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    /* Timetable Grid */
+    .timetable-wrap { overflow-x: auto; padding-bottom: 6px; }
+    .week-grid {
+      min-width: 720px;
+      display: grid;
+      grid-template-columns: 80px repeat(5, minmax(110px, 1fr));
+      gap: 8px;
+    }
+    .week-grid .day-head {
+      padding: 9px 6px;
+      text-align: center;
+      font-size: 11px;
+      font-weight: 700;
+      color: var(--navy-800);
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      background: #f8fafc;
+    }
+    .week-grid .time-head {
+      padding: 10px 5px;
+      color: var(--text-muted);
+      font-size: 11px;
+      text-align: center;
+      font-family: var(--font-mono);
+    }
+    .week-grid .class-slot {
+      min-height: 74px;
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      padding: 8px;
+      background: #ffffff;
+      border-left: 4px solid var(--blue-accent);
+    }
+    .week-grid .class-slot strong { font-size: 11.5px; display: block; color: var(--navy-900); line-height: 1.3; }
+    .week-grid .class-slot small { display: block; color: var(--text-muted); font-size: 10px; margin-top: 4px; }
+    .week-grid .class-slot .slot-time { color: var(--blue-accent); font-weight: 700; font-size: 10px; font-family: var(--font-mono); }
+    .week-grid .empty-slot { min-height: 74px; border: 1px dashed var(--border); border-radius: 6px; background: #f8fafc; }
+    .week-grid .today-head { background: var(--navy-900); color: #ffffff; border-color: var(--navy-900); }
+
+    /* Tables */
+    table { width: 100%; border-collapse: collapse; font-size: 13px; }
+    th {
+      background: #f8fafc;
+      text-align: left;
+      font-size: 11px;
+      font-weight: 700;
+      color: var(--navy-800);
+      padding: 11px 10px;
+      border-bottom: 2px solid var(--border);
+    }
+    td {
+      padding: 11px 10px;
+      border-bottom: 1px solid var(--border-subtle);
+      color: var(--text-main);
+    }
+
+    /* Badges & Pills */
+    .pill {
+      display: inline-block;
+      padding: 3px 8px;
+      border-radius: 4px;
+      font-size: 11px;
+      font-weight: 700;
+      white-space: nowrap;
+    }
+    .badge-pass { background: #ecfdf5; color: #047857; border: 1px solid #a7f3d0; }
+    .badge-warn { background: #fffbeb; color: #b45309; border: 1px solid #fde68a; }
+    .badge-fail { background: #fff1f2; color: #be123c; border: 1px solid #fecdd3; }
+    .badge-info { background: #eff6ff; color: #1d4ed8; border: 1px solid #bfdbfe; }
+
+    /* Lists */
+    .list { display: grid; gap: 10px; }
+    .item {
+      display: flex;
+      align-items: flex-start;
+      gap: 12px;
+      padding: 12px;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      background: #ffffff;
+      transition: transform 0.2s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.2s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.2s;
+    }
+    .item:hover {
+      border-color: #cbd5e1;
+      transform: translateY(-1px);
+      box-shadow: 0 4px 12px rgba(15,23,42,0.05);
+    }
+    .item .dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: var(--blue-accent);
+      margin-top: 6px;
+      flex: none;
+    }
+    .item strong { display: block; font-size: 12px; color: var(--navy-900); }
+    .item p { font-size: 11px; color: var(--text-muted); margin: 2px 0 0; }
+
+    /* Buttons */
+    .btn {
+      background: var(--navy-900);
+      color: #ffffff;
+      border: 1px solid var(--navy-900);
+      border-radius: 8px;
+      padding: 10px 18px;
+      font-weight: 600;
+      font-size: 13.5px;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 7px;
+      transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+      box-shadow: 0 1px 2px rgba(15,23,42,0.08);
+    }
+    .btn:hover {
+      background: #0d1e38;
+      border-color: #0d1e38;
+      transform: translateY(-1.5px);
+      box-shadow: 0 4px 14px rgba(15,23,42,0.2);
+    }
+    .btn:active {
+      transform: translateY(0);
+      box-shadow: 0 1px 2px rgba(15,23,42,0.08);
+    }
+    .btn.blue {
+      background: var(--blue-accent);
+      border-color: var(--blue-accent);
+    }
+    .btn.blue:hover {
+      background: #1e40af;
+      border-color: #1e40af;
+      transform: translateY(-1.5px);
+      box-shadow: 0 4px 14px rgba(29,78,216,0.25);
+    }
+    .btn.secondary {
+      background: #ffffff;
+      color: var(--navy-900);
+      border-color: var(--border);
+    }
+    .btn.secondary:hover {
+      background: #f8fafc;
+      border-color: #cbd5e1;
+      transform: translateY(-1.5px);
+      box-shadow: 0 3px 10px rgba(0,0,0,0.07);
+    }
+    .btn.secondary:active {
+      transform: translateY(0);
+    }
+
+    /* Real-Time AI Chat Assistant */
+    .chat { display: flex; gap: 8px; margin-top: 14px; }
+    .chat input {
+      flex: 1;
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      padding: 10px 14px;
+      background: #ffffff;
+    }
+    .chat input:focus {
+      outline: none;
+      border-color: var(--blue-accent);
+      box-shadow: 0 0 0 3px rgba(29,78,216,0.12);
+    }
+    .chat-reply-bubble {
+      margin-top: 12px;
+      border: 1px solid var(--border);
+      border-left: 4px solid var(--blue-accent);
+      background: #f8fafc;
+      padding: 14px;
+      border-radius: 6px;
+      font-size: 13px;
+      line-height: 1.6;
+    }
+
+    /* Responsive Rules (Never squish) */
+    @media(max-width: 900px) {
+      .s3, .s4, .s5, .s6, .s7, .s8 { grid-column: span 12 !important; }
+      .details { grid-template-columns: repeat(2, 1fr); }
+    }
+  </style>
+</head>
+<body>
+
+<header>
+  <div class="top-bar">
+    <div class="wrap">
+      <span>CampusIQ University • Undergraduate Student Portal</span>
+      <span>Academic Year 2026–2027 • Fall Term</span>
+    </div>
+  </div>
+
+  <div class="wrap">
+    <div class="main-nav">
+      <a class="brand-wrap" href="student-portal.html">
+        <div class="brand-icon">CQ</div>
+        <div class="brand-titles">
+          <h2>CAMPUSIQ</h2>
+          <p>Student Academic & Advising System</p>
+        </div>
+      </a>
+
+      <div class="navright">
+        <button class="header-btn" onclick="CAMPUSIQ_AI.openSettingsModal()">
+          <span class="pulse-dot"></span>
+          <span id="aiPill">● Real-Time AI Active</span>
+        </button>
+        <button class="header-btn" onclick="CAMPUSIQ_AI.openSettingsModal()">⚙ AI Settings</button>
+        <button class="header-btn" onclick="location.href='faculty-portal.html'">Faculty Portal</button>
+        <button class="header-btn" onclick="location.href='index.html'">Sign Out</button>
+      </div>
+    </div>
+
+    <!-- Clean Navigation Tabs (Divided clearly) -->
+    <nav class="portal-tabs" aria-label="Student Sections">
+      <button class="portal-tab active" data-page="overview">
+        <svg viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+        Overview & Profile
+      </button>
+      <button class="portal-tab" data-page="grades-page">
+        <svg viewBox="0 0 24 24"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg>
+        Academics & Grades
+      </button>
+      <button class="portal-tab" data-page="timetable-page">
+        <svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+        Weekly Timetable
+      </button>
+      <button class="portal-tab" data-page="support-page">
+        <svg viewBox="0 0 24 24"><path d="M12 2v4M12 18v4M4.93 4.93l2.83 2.83M16.24 16.24l2.83 2.83M2 12h4M18 12h4M4.93 19.07l2.83-2.83M16.24 7.76l2.83-2.83"/><circle cx="12" cy="12" r="3"/></svg>
+        Deadlines & AI Advisor
+      </button>
+      <button class="portal-tab" data-page="directory-page">
+        <svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+        Faculty & Facilities
+      </button>
+    </nav>
+  </div>
+</header>
+
+<main class="wrap">
+
+  <!-- ========================================== -->
+  <!-- TAB 0: OVERVIEW & PROFILE                  -->
+  <!-- ========================================== -->
+  <section class="portal-page active" data-page="overview">
+    <div class="sec-header">
+      <span class="eyebrow">Student Dashboard</span>
+      <h1>Welcome back, <span id="helloName">Aarav</span></h1>
+      <p>Here is your current academic performance standing and assigned mentorship directives.</p>
+    </div>
+
+    <!-- Student Bio Card + Mentor Card -->
+    <div class="grid">
+      <article class="card s8">
+        <div class="profile">
+          <div class="avatar" id="avatar">AS</div>
+          <div>
+            <h2 id="fullName" style="font-size:20px; font-weight:700; color:var(--navy-900);">Aarav Sharma</h2>
+            <p class="small" id="courseLine" style="margin:2px 0 6px;">B.Tech • Computer Science (AI & ML) • Semester 5</p>
+            <span class="pill badge-info" id="studentId">CU2401</span>
+          </div>
+        </div>
+        <div class="details">
+          <div class="detail"><label>College Email</label><b id="email">aarav.sharma@campus.demo</b></div>
+          <div class="detail"><label>Roll Number</label><b id="roll">CSAI-2401</b></div>
+          <div class="detail"><label>Academic Advisor</label><b id="advisorSmall">Dr. R. Khanna</b></div>
+          <div class="detail"><label>Cumulative CGPA</label><b id="cgpa">8.6 / 10.0</b></div>
+          <div class="detail"><label>Active Backlogs</label><b id="backlogs">0</b></div>
+          <div class="detail"><label>Class Batch</label><b id="classGroup">CSE-AI • Batch B</b></div>
+        </div>
+      </article>
+
+      <article class="card s4">
+        <h3>Assigned Faculty Mentor</h3>
+        <p class="small">Designated academic advisor and mentor</p>
+        <div style="display:flex; gap:12px; align-items:center;">
+          <div class="avatar" id="mentorAvatar" style="width:44px; height:44px; font-size:16px;">RK</div>
+          <div>
+            <strong id="mentorName" style="color:var(--navy-900);">Dr. R. Khanna</strong>
+            <p id="mentorRole" class="small" style="margin:2px 0;">Professor & Head • Faculty Mentor</p>
+            <p id="mentorHours" class="small" style="margin:0; color:var(--blue-accent); font-weight:600;">Office Hours: Wed 2:00–3:00 PM</p>
+          </div>
+        </div>
+        <div style="margin-top:16px; display:flex; gap:8px;">
+          <button class="btn blue" onclick="requestMentor()">Request Meeting</button>
+          <button class="btn secondary" onclick="alert('Dr. R. Khanna • Cabin B-210. Drop-in during scheduled office hours.')">Cabin Details</button>
+        </div>
+        <p id="mentorMsg" class="small" style="margin-top:10px; color:#15803d; font-weight:600;"></p>
+      </article>
+    </div>
+
+    <!-- Key Metrics Strip -->
+    <div class="grid">
+      <article class="card s3">
+        <div class="metric">
+          <div>
+            <strong id="attendanceMetric">92%</strong>
+            <span>Attendance</span>
+          </div>
+        </div>
+        <div class="bar"><i id="attendanceBar" style="width:92%"></i></div>
+        <p class="small">Above statutory 75% threshold.</p>
+      </article>
+
+      <article class="card s3">
+        <div class="metric">
+          <div>
+            <strong id="academicMetric">82</strong>
+            <span>Academic Score / 100</span>
+          </div>
+        </div>
+        <div class="bar"><i id="academicBar" style="width:82%"></i></div>
+        <p class="small">Internal marks and attendance.</p>
+      </article>
+
+      <article class="card s3">
+        <div class="metric">
+          <div>
+            <strong id="placementMetric">39</strong>
+            <span>Placement Readiness</span>
+          </div>
+        </div>
+        <div class="bar"><i id="placementBar" style="width:39%; background:var(--rose-accent);"></i></div>
+        <p class="small" id="placementHint" style="color:var(--rose-accent); font-weight:600;">Priority development area.</p>
+      </article>
+
+      <article class="card s3">
+        <div class="metric">
+          <div>
+            <strong id="tasksMetric">3</strong>
+            <span>Action Milestones</span>
+          </div>
+        </div>
+        <p class="small" style="margin-top:8px;">Assigned faculty milestones.</p>
+        <span class="pill badge-warn">2 due this week</span>
+      </article>
+    </div>
+  </section>
+
+  <!-- ========================================== -->
+  <!-- TAB 1: ACADEMICS & GRADES                  -->
+  <!-- ========================================== -->
+  <section class="portal-page" data-page="grades-page">
+    <div class="sec-header">
+      <span class="eyebrow">Continuous Assessment</span>
+      <h1>Course Grades & Learning Progression</h1>
+      <p>Coursework internal marks, attendance %, and assigned remedial milestones.</p>
+    </div>
+
+    <div class="grid">
+      <!-- Course Breakdown Table -->
+      <article class="card s7">
+        <h3>Continuous Internal Assessment (CIA)</h3>
+        <p class="small">Subject-wise evaluation marks and attendance audit</p>
+        <table>
+          <thead>
+            <tr>
+              <th>Course Name</th>
+              <th>Faculty</th>
+              <th>Marks</th>
+              <th>Attendance</th>
+              <th>Status</th>
+            </tr>
+          </thead>
+          <tbody id="courseTableBody"></tbody>
+        </table>
+      </article>
+
+      <!-- Faculty Action Milestones -->
+      <article class="card s5">
+        <h3>Faculty Action Milestones</h3>
+        <p class="small">Assigned by your academic advisor to improve standing</p>
+        <div class="list" id="nextSteps"></div>
+      </article>
+    </div>
+  </section>
+
+  <!-- ========================================== -->
+  <!-- TAB 2: WEEKLY TIMETABLE                    -->
+  <!-- ========================================== -->
+  <section class="portal-page" data-page="timetable-page">
+    <div class="sec-header">
+      <span class="eyebrow">Class Schedule</span>
+      <h1>Weekly Timetable & Course Attendance</h1>
+      <p>Your class schedule, practical lab sessions, and subject-wise attendance thresholds.</p>
+    </div>
+
+    <div class="grid">
+      <!-- Timetable -->
+      <article class="card s8">
+        <h3>Class Timetable</h3>
+        <p class="small">Today is automatically highlighted</p>
+        <div class="timetable-wrap">
+          <div class="week-grid" id="timetable"></div>
+        </div>
+      </article>
+
+      <!-- Attendance by Subject -->
+      <article class="card s4">
+        <h3>Attendance Audit by Course</h3>
+        <p class="small">Minimum threshold: 75% statutory attendance</p>
+        <div id="subjectAttendance"></div>
+      </article>
+    </div>
+  </section>
+
+  <!-- ========================================== -->
+  <!-- TAB 3: DEADLINES & AI ADVISOR              -->
+  <!-- ========================================== -->
+  <section class="portal-page" data-page="support-page">
+    <div class="sec-header">
+      <span class="eyebrow">Academic Advising</span>
+      <h1>Deadlines & Real-Time AI Academic Advisor</h1>
+      <p>Track submission deadlines and consult with the AI academic advisor regarding your courses and timetable.</p>
+    </div>
+
+    <div class="grid">
+      <!-- Deadlines -->
+      <article class="card s5">
+        <h3>Upcoming Academic Deadlines</h3>
+        <p class="small">Assignments, practical submissions, and tests</p>
+        <div class="list" id="deadlines"></div>
+      </article>
+
+      <!-- AI Assistant -->
+      <article class="card s7">
+        <div style="display:flex; justify-content:space-between; align-items:center;">
+          <h3>AI Academic Advisor</h3>
+          <span class="pill badge-info" style="cursor:pointer;" onclick="CAMPUSIQ_AI.openSettingsModal()">⚙ Real-Time AI</span>
+        </div>
+        <p class="small">Ask in real time about your course schedule, attendance recovery, or mentor office hours.</p>
+
+        <div class="list" id="chatReplies" style="max-height:340px; overflow-y:auto; padding-right:4px;">
+          <div class="item">
+            <span class="dot"></span>
+            <div>
+              <strong>CampusIQ Academic Advisor</strong>
+              <p>Hello! I have access to your personal grades, timetable, and faculty advisor hours. What would you like to check today?</p>
+            </div>
+          </div>
+        </div>
+
+        <form class="chat" id="chatForm">
+          <input id="chatInput" placeholder="Ask about your timetable, marks, attendance, or mentor office hours…" autocomplete="off" required>
+          <button class="btn blue" type="submit">Ask ↗</button>
+        </form>
+        <div id="chatReply" class="chat-reply-bubble" style="display:none;"></div>
+      </article>
+    </div>
+  </section>
+
+  <!-- ========================================== -->
+  <!-- TAB 4: FACULTY & FACILITIES                -->
+  <!-- ========================================== -->
+  <section class="portal-page" data-page="directory-page">
+    <div class="sec-header">
+      <span class="eyebrow">Directory</span>
+      <h1>Faculty Appointments & Campus Facilities</h1>
+      <p>Faculty cabin numbers, office hours, and today's room allocations.</p>
+    </div>
+
+    <div class="grid">
+      <article class="card s7">
+        <h3>Department Faculty Directory</h3>
+        <p class="small">Cabins and scheduled consultation hours</p>
+        <div class="list" id="facList"></div>
+      </article>
+      <article class="card s5">
+        <h3>Rooms Today</h3>
+        <p class="small">Allocated classrooms and laboratories</p>
+        <div class="list" id="roomList"></div>
+      </article>
+    </div>
+  </section>
+
+</main>
+
+<script src="ai-client.js"></script>
+<script>
+  const profiles = {
+    'CU2401': {
+      name: 'Aarav Sharma',
+      dept: 'Computer Science (AI & ML)',
+      short: 'CSE-AI',
+      sem: 5,
+      cgpa: 8.6,
+      att: 92,
+      back: 0,
+      academic: 82,
+      placement: 39,
+      mentor: 'Dr. R. Khanna',
+      mentorRole: 'Professor & Head • Faculty Mentor',
+      mentorHours: 'Office hours: Wed 2:00–3:00 PM',
+      subjects: [
+        ['Machine Learning', 86, 94, 'Dr. Khanna'],
+        ['DBMS & SQL', 82, 91, 'Prof. Menon'],
+        ['Algorithms', 84, 88, 'Prof. Iyer'],
+        ['Computer Networks', 76, 79, 'Ms. Sharma']
+      ],
+      timetable: [
+        ['Monday', '09:00–10:00', 'Machine Learning', 'B-204', 'Dr. Khanna'],
+        ['Monday', '11:00–12:00', 'DBMS Lab', 'Lab 2', 'Prof. Menon'],
+        ['Tuesday', '10:00–11:00', 'Algorithms', 'A-105', 'Prof. Iyer'],
+        ['Wednesday', '14:00–15:00', 'Mentor Hour', 'Cabin B-210', 'Dr. Khanna'],
+        ['Thursday', '12:00–13:00', 'Computer Networks', 'B-101', 'Ms. Sharma'],
+        ['Friday', '10:00–12:00', 'Coding Practice Lab', 'Lab 4', 'Career Cell']
+      ],
+      tasks: [
+        ['Algorithmic Problem Sets', 'Complete two arrays and string practice modules.', 'High'],
+        ['Register for Mock Interview', 'Book one 20-minute technical viva with Placement Cell.', 'High'],
+        ['Update Technical Portfolio', 'Document semester machine learning project on repository.', 'Medium']
+      ],
+      deadlines: [
+        ['Coding Practice Drill', 'Tomorrow • 6:00 PM', 'Coding'],
+        ['DBMS Lab Submission', 'Friday • 11:59 PM', 'Academic'],
+        ['Placement Readiness Workshop', 'Monday • 2:00 PM', 'Career']
+      ]
+    },
+    'CU2402': {
+      name: 'Meera Gupta',
+      dept: 'Electronics Engineering',
+      short: 'ECE',
+      sem: 5,
+      cgpa: 5.1,
+      att: 62,
+      back: 2,
+      academic: 43,
+      placement: 37,
+      mentor: 'Priya Menon',
+      mentorRole: 'Assistant Professor • Faculty Mentor',
+      mentorHours: 'Office hours: Tue 1:00–2:00 PM',
+      subjects: [
+        ['VLSI System Design', 41, 68, 'Priya Menon'],
+        ['Signals & Systems', 38, 59, 'Prof. Iyer'],
+        ['Embedded Systems', 45, 72, 'Dr. Khanna'],
+        ['Circuit Theory', 52, 74, 'Ms. Sharma']
+      ],
+      tasks: [
+        ['Consult Faculty Mentor', 'Review attendance remediation options and backlog timeline.', 'High'],
+        ['Tutoring Registration', 'Attend weekly Signals & Systems remedial tutorials.', 'High'],
+        ['Fundamental Practice', 'Complete beginner circuits problem set.', 'Medium']
+      ],
+      deadlines: [
+        ['Signals & Systems Assignment', 'Tomorrow • 5:00 PM', 'Academic'],
+        ['Advisor Check-in', 'Wednesday • 1:00 PM', 'Advising'],
+        ['Aptitude Assessment', 'Friday • 6:00 PM', 'Career']
+      ]
+    },
+    'CU2403': {
+      name: 'Rohan Verma',
+      dept: 'Mechanical Engineering',
+      short: 'MECH',
+      sem: 6,
+      cgpa: 5.4,
+      att: 89,
+      back: 1,
+      academic: 47,
+      placement: 78,
+      mentor: 'Career Cell Advisory',
+      mentorRole: 'Academic & Career Advisor',
+      mentorHours: 'Drop-in hours: Thu 12:00–1:00 PM',
+      subjects: [
+        ['Applied Thermodynamics', 43, 86, 'Prof. Iyer'],
+        ['Fluid Mechanics', 40, 82, 'Dr. Khanna'],
+        ['Theory of Machines', 48, 89, 'Priya Menon'],
+        ['Manufacturing Tech', 61, 91, 'Ms. Sharma']
+      ],
+      tasks: [
+        ['Thermodynamics Tutoring', 'Concentrate on second law problem sets.', 'High'],
+        ['Clear Active Backlog', 'Submit backlog re-examination application.', 'High'],
+        ['Technical Mock Practice', 'Continue mock interview preparation.', 'Medium']
+      ],
+      deadlines: [
+        ['Thermodynamics Quiz', 'Thursday • 10:00 AM', 'Academic'],
+        ['Advising Progress Review', 'Thursday • 12:00 PM', 'Advising'],
+        ['Technical Mock Interview', 'Friday • 4:00 PM', 'Career']
+      ]
+    }
+  };
+
+  const id = (sessionStorage.getItem('campusiqIdentity') || new URLSearchParams(location.search).get('id') || 'CU2401').trim().toUpperCase();
+  const p = profiles[id] || profiles['CU2401'];
+  const first = p.name.split(' ')[0];
+
+  document.title = `${first}'s Student Portal | CampusIQ`;
+  document.getElementById('helloName').textContent = first;
+  document.getElementById('fullName').textContent = p.name;
+  document.getElementById('avatar').textContent = p.name.split(' ').map(x => x[0]).slice(0, 2).join('').toUpperCase();
+  document.getElementById('studentId').textContent = id;
+  document.getElementById('courseLine').textContent = `B.Tech • ${p.dept} • Semester ${p.sem}`;
+  document.getElementById('email').textContent = first.toLowerCase() + '.student@campus.demo';
+  document.getElementById('roll').textContent = p.short + '-' + id.replace(/\D/g, '').slice(-4);
+  document.getElementById('advisorSmall').textContent = p.mentor;
+  document.getElementById('cgpa').textContent = p.cgpa + ' / 10.0';
+  document.getElementById('backlogs').textContent = p.back;
+  document.getElementById('classGroup').textContent = p.short + ' • Batch ' + (p.sem % 2 ? 'B' : 'A');
+  document.getElementById('mentorName').textContent = p.mentor;
+  document.getElementById('mentorRole').textContent = p.mentorRole;
+  document.getElementById('mentorHours').textContent = p.mentorHours;
+  document.getElementById('mentorAvatar').textContent = p.mentor.split(/\s+/).map(x => x[0]).slice(0, 2).join('').replace('.', '').toUpperCase();
+  document.getElementById('attendanceMetric').textContent = p.att + '%';
+  document.getElementById('attendanceBar').style.width = p.att + '%';
+  document.getElementById('academicMetric').textContent = p.academic;
+  document.getElementById('academicBar').style.width = p.academic + '%';
+  document.getElementById('placementMetric').textContent = p.placement;
+  document.getElementById('placementBar').style.width = p.placement + '%';
+
+  // Course Gradebook Table (Clean, never squished!)
+  document.getElementById('courseTableBody').innerHTML = p.subjects.map(s => {
+    const isPass = s[1] >= 50;
+    return `
+      <tr>
+        <td><b>${s[0]}</b></td>
+        <td><small>${s[3]}</small></td>
+        <td><b style="color:${isPass ? '#0f766e' : '#be123c'};">${s[1]}</b> / 100</td>
+        <td><span style="color:${s[2] < 75 ? '#be123c' : '#0f766e'}; font-weight:600;">${s[2]}%</span></td>
+        <td>${isPass ? '<span class="pill badge-pass">Cleared</span>' : '<span class="pill badge-fail">Deficient</span>'}</td>
+      </tr>
+    `;
+  }).join('');
+
+  // Timetable
+  const dayNames = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
+  const today = dayNames[new Date().getDay()];
+  const schedule = p.timetable;
+  const days = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday'];
+  const dayShort = { Monday: 'MON', Tuesday: 'TUE', Wednesday: 'WED', Thursday: 'THU', Friday: 'FRI' };
+  const slotsByDay = Object.fromEntries(days.map(d => [d, schedule.filter(r => r[0] === d).sort((a, b) => a[1].localeCompare(b[1]))]));
+  const times = [...new Set(schedule.map(r => r[1]))].sort();
+  const grid = document.getElementById('timetable');
+
+  grid.innerHTML = '<div class="time-head">TIME</div>' + days.map(d => `
+    <div class="day-head ${d === today ? 'today-head' : ''}">${dayShort[d]}${d === today ? ' • TODAY' : ''}</div>
+  `).join('') + times.map(tm => `
+    <div class="time-head">${tm.replace('–', '–<br>')}</div>` + days.map(d => {
+      const r = slotsByDay[d].find(x => x[1] === tm);
+      return r ? `
+        <div class="class-slot">
+          <span class="slot-time">${r[1]}</span>
+          <strong>${r[2]}</strong>
+          <small>${r[3]} • ${r[4]}</small>
+        </div>
+      ` : '<div class="empty-slot"></div>';
+    }).join('')
+  ).join('');
+
+  document.getElementById('subjectAttendance').innerHTML = p.subjects.map(s => `
+    <div style="margin:12px 0;">
+      <div style="display:flex; justify-content:space-between; font-size:12px;">
+        <span>${s[0]}</span>
+        <b style="color:${s[2] < 75 ? '#be123c' : '#0f766e'};">${s[2]}%</b>
+      </div>
+      <div class="bar"><i style="width:${s[2]}%;background:${s[2] < 75 ? '#be123c' : '#0f766e'};"></i></div>
+    </div>
+  `).join('');
+
+  document.getElementById('tasksMetric').textContent = p.tasks.length;
+  document.getElementById('nextSteps').innerHTML = p.tasks.map(t => `
+    <div class="item">
+      <span class="dot"></span>
+      <div>
+        <strong>${t[0]} <span class="pill ${t[2] === 'High' ? 'badge-fail' : 'badge-warn'}">${t[2]} Priority</span></strong>
+        <p>${t[1]}</p>
+      </div>
+    </div>
+  `).join('');
+
+  document.getElementById('deadlines').innerHTML = p.deadlines.map(d => `
+    <div class="item">
+      <span class="dot"></span>
+      <div>
+        <strong>${d[0]}</strong>
+        <p>${d[1]} • ${d[2]}</p>
+      </div>
+    </div>
+  `).join('');
+
+  function requestMentor() {
+    document.getElementById('mentorMsg').textContent = '✓ Advising request recorded. Your mentor has been notified.';
+  }
+
+  // Real-Time Student AI Assistant
+  const aiHist = [];
+  function studentCtx() {
+    return JSON.stringify({
+      student: {
+        name: p.name,
+        id: id,
+        department: p.dept,
+        semester: p.sem,
+        cgpa: p.cgpa,
+        attendance: p.att,
+        backlogs: p.back,
+        mentor: p.mentor,
+        mentorHours: p.mentorHours,
+        subjects: p.subjects,
+        timetable: p.timetable,
+        tasks: p.tasks,
+        deadlines: p.deadlines
+      }
+    });
+  }
+
+  document.getElementById('chatForm').addEventListener('submit', async e => {
+    e.preventDefault();
+    const input = document.getElementById('chatInput');
+    const raw = input.value.trim();
+    if (!raw) return;
+    input.value = '';
+
+    const box = document.getElementById('chatReplies');
+    box.insertAdjacentHTML('beforeend', `
+      <div class="item">
+        <span class="dot" style="background:var(--blue-accent);"></span>
+        <div><strong>You</strong><p>${raw}</p></div>
+      </div>
+      <div class="item" id="studentAiThinking">
+        <span class="dot" style="background:var(--navy-900);"></span>
+        <div><strong>CampusIQ Academic Advisor</strong><p>Thinking in real time…</p></div>
+      </div>
+    `);
+    box.scrollTop = box.scrollHeight;
+
+    try {
+      aiHist.push({ role: 'user', content: raw });
+      const reply = await CAMPUSIQ_AI.ask('student', studentCtx(), aiHist.slice(-8));
+      aiHist.push({ role: 'assistant', content: reply });
+
+      const thinkingEl = document.getElementById('studentAiThinking');
+      if (thinkingEl) {
+        thinkingEl.removeAttribute('id');
+        thinkingEl.querySelector('p').innerHTML = CAMPUSIQ_AI.renderMarkdown(reply);
+      }
+      box.scrollTop = box.scrollHeight;
+    } catch (err) {
+      const thinkingEl = document.getElementById('studentAiThinking');
+      if (thinkingEl) {
+        thinkingEl.removeAttribute('id');
+        thinkingEl.querySelector('p').innerHTML = `<span style="color:#be123c;">Error: ${err.message}</span>`;
+      }
+    }
+  });
+
+  // Faculty and Rooms
+  const FAC = [
+    ['Dr. R. Khanna', 'Professor & Head', 'CSE-AI', 'rkhanna', '+91 90000 10001', 'Cabin B-210', 'Wed 2:00–3:00 PM', 'Machine Learning • Faculty Mentor'],
+    ['Priya Menon', 'Assistant Professor', 'ECE', 'priya.menon', '+91 90000 10002', 'Cabin E-114', 'Tue 1:00–2:00 PM', 'VLSI • Embedded Systems'],
+    ['Prof. A. Iyer', 'Associate Professor', 'CSE-AI', 'a.iyer', '+91 90000 10003', 'Cabin B-212', 'Thu 11:00 AM–12:00 PM', 'Algorithms • Networks'],
+    ['Neha Sharma', 'Student Success Coordinator', 'MBA', 'neha.sharma', '+91 90000 10004', 'Cabin Admin-05', 'Thu 2:00–3:00 PM', 'Mentoring • Analytics']
+  ];
+  document.getElementById('facList').innerHTML = FAC.map(x => `
+    <div class="item">
+      <span class="dot"></span>
+      <div>
+        <strong>${x[0]} <span class="pill badge-info">${x[2]}</span></strong>
+        <p>${x[1]} • ${x[7]}</p>
+        <p><a href="mailto:${x[3]}@campus.demo">✉ ${x[3]}@campus.demo</a> • ${x[5]} • ${x[6]}</p>
+      </div>
+    </div>
+  `).join('');
+
+  const ROOMS0 = [
+    { no: 'B-204', bld: 'Block B • 2F', type: 'Lecture Hall', cap: 60, slots: ['09:00–10:00: Machine Learning', '11:00–12:00: Algorithms'] },
+    { no: 'Lab 2', bld: 'Block B • 1F', type: 'Computer Lab', cap: 40, slots: ['11:00–13:00: DBMS Lab Practical', '14:00–16:00: CSE-AI Practical Exam'] },
+    { no: 'Lab 4', bld: 'Block B • 1F', type: 'Coding Practice Lab', cap: 40, slots: ['10:00–12:00: Coding Practice Lab'] }
+  ];
+  document.getElementById('roomList').innerHTML = ROOMS0.map(r => `
+    <div class="item">
+      <span class="dot"></span>
+      <div>
+        <strong>${r.no} • ${r.type}</strong>
+        <p>${r.bld} • Capacity: ${r.cap}</p>
+        ${r.slots.map(s => `<p style="color:var(--text-muted);font-size:11px;">• ${s}</p>`).join('')}
+      </div>
+    </div>
+  `).join('');
+
+  // Tab Navigation (Clean division!)
+  document.querySelectorAll('.portal-tab').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const page = btn.dataset.page;
+      document.querySelectorAll('.portal-tab').forEach(b => b.classList.toggle('active', b === btn));
+      document.querySelectorAll('.portal-page').forEach(el => el.classList.toggle('active', el.dataset.page === page));
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    });
+  });
+
+  CAMPUSIQ_AI.badge(document.getElementById('aiPill'));
+</script>
+</body>
+</html>

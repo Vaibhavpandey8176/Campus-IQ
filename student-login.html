@@ -1,0 +1,136 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Student Sign In | CampusIQ</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg-slate: #edf2f7;
+      --navy-900: #0d1e38;
+      --blue-accent: #1d4ed8;
+      --border: #d2d9e4;
+      --text-main: #0f172a;
+      --text-muted: #526075;
+      --font-main: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      min-height: 100vh;
+      background: var(--bg-slate);
+      color: var(--text-main);
+      font: 14px/1.55 var(--font-main);
+      display: grid;
+      place-items: center;
+      padding: 24px;
+    }
+    .gateway-card {
+      width: min(100%, 960px);
+      background: #ffffff;
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      box-shadow: 0 4px 20px rgba(13,30,56,0.08);
+      overflow: hidden;
+      display: grid;
+      grid-template-columns: 1.1fr 0.9fr;
+    }
+    @media(max-width: 800px) { .gateway-card { grid-template-columns: 1fr; } }
+    .hero-side {
+      background: var(--navy-900);
+      color: #ffffff;
+      padding: clamp(32px, 5vw, 44px);
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      border-right: 3px solid var(--blue-accent);
+    }
+    .brand-wrap { display: flex; align-items: center; gap: 12px; }
+    .brand-icon {
+      width: 40px; height: 40px; border-radius: 8px;
+      background: linear-gradient(135deg, #1d4ed8, #0f766e);
+      display: grid; place-items: center; font-weight: 800; font-size: 18px; color: #fff;
+    }
+    .brand-titles h1 { font-size: 20px; font-weight: 800; color: #fff; margin: 0; }
+    .brand-titles p { font-size: 11px; color: #94a3b8; margin: 2px 0 0; }
+    .hero-content { margin: 36px 0; }
+    .hero-content h2 { font-size: 26px; font-weight: 800; color: #fff; margin: 0 0 10px; line-height: 1.25; }
+    .hero-content p { color: #cbd5e1; font-size: 14px; line-height: 1.6; }
+    .panel-side { padding: clamp(32px, 5vw, 44px); display: flex; flex-direction: column; justify-content: center; }
+    .panel-side h3 { font-size: 22px; font-weight: 700; color: var(--navy-900); margin: 0 0 4px; }
+    .panel-side p.sub { color: var(--text-muted); font-size: 13px; margin: 0 0 20px; }
+    .field { display: block; margin-bottom: 16px; }
+    .field span { display: block; font-size: 11px; font-weight: 700; text-transform: uppercase; color: var(--navy-900); margin-bottom: 5px; }
+    .field input, .field select { width: 100%; padding: 10px 12px; border: 1px solid var(--border); border-radius: 6px; font-size: 13px; }
+    .field input:focus, .field select:focus { outline: none; border-color: var(--blue-accent); box-shadow: 0 0 0 3px rgba(29,78,216,0.12); }
+    .btn { background: var(--navy-900); color: #fff; border: 0; border-radius: 8px; padding: 13px 18px; width: 100%; font-weight: 700; font-size: 14px; cursor: pointer; transition: all 0.22s cubic-bezier(0.16, 1, 0.3, 1); box-shadow: 0 2px 6px rgba(13,30,56,0.15); }
+    .btn:hover { background: var(--blue-accent); transform: translateY(-1.5px); box-shadow: 0 6px 18px rgba(29,78,216,0.3); }
+    .btn:active { transform: translateY(0); }
+    .creds { margin-top: 16px; padding: 12px; background: #f8fafc; border: 1px solid var(--border); border-radius: 6px; font-size: 12px; color: var(--text-muted); }
+  </style>
+</head>
+<body>
+
+<main class="gateway-card">
+  <section class="hero-side">
+    <div class="brand-wrap">
+      <div class="brand-icon">CQ</div>
+      <div class="brand-titles">
+        <h1>CAMPUSIQ</h1>
+        <p>Student Portal</p>
+      </div>
+    </div>
+    <div class="hero-content">
+      <h2>Your campus,<br>your progress.</h2>
+      <p>Check your timetable, internal assessment grades, attendance audit, and consult with the AI academic advisor.</p>
+    </div>
+    <div style="font-size:12px; color:#94a3b8;">
+      <a href="index.html" style="color:#93c5fd; text-decoration:none;">← Return to Portal Directory</a>
+    </div>
+  </section>
+
+  <section class="panel-side">
+    <h3>Student Sign In</h3>
+    <p class="sub">Select or enter your student ID to continue.</p>
+
+    <form id="studentForm">
+      <label class="field">
+        <span>Student Profile</span>
+        <select id="identitySelect" style="margin-bottom:8px;">
+          <option value="CU2401">CU2401 — Aarav Sharma (CSE-AI, Sem 5)</option>
+          <option value="CU2402">CU2402 — Meera Gupta (ECE, Sem 5)</option>
+          <option value="CU2403">CU2403 — Rohan Verma (MECH, Sem 6)</option>
+        </select>
+        <input type="text" id="identity" placeholder="Or enter student ID (e.g. CU2401)" value="CU2401">
+      </label>
+      <label class="field">
+        <span>Password</span>
+        <input type="password" value="••••••••••••" required>
+      </label>
+      <button class="btn" type="submit">Sign In to Student Portal →</button>
+    </form>
+
+    <div class="creds">
+      <strong>Demo Accounts:</strong> Select any student from the dropdown or enter any demo password.
+    </div>
+  </section>
+</main>
+
+<script>
+  const sel = document.getElementById('identitySelect');
+  const inp = document.getElementById('identity');
+  sel.addEventListener('change', () => inp.value = sel.value);
+
+  document.getElementById('studentForm').addEventListener('submit', function(e) {
+    e.preventDefault();
+    const candidateId = inp.value.trim().toUpperCase() || 'CU2401';
+    sessionStorage.setItem('campusiqRole', 'student');
+    sessionStorage.setItem('campusiqIdentity', candidateId);
+    window.location.href = 'student-portal.html?id=' + encodeURIComponent(candidateId);
+  });
+</script>
+</body>
+</html>

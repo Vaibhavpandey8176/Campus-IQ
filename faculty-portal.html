@@ -1,0 +1,1980 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="color-scheme" content="light">
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+  <title>CampusIQ — Academic Intelligence & Student Success Platform</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500;600&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg-slate: #edf2f7;
+      --navy-900: #0d1e38;
+      --navy-800: #142a4a;
+      --navy-700: #1c3864;
+      --navy-600: #254b85;
+      --blue-accent: #1d4ed8;
+      --teal-accent: #0f766e;
+      --amber-accent: #b45309;
+      --rose-accent: #be123c;
+      --gold-accent: #c59b27;
+      --card-bg: #ffffff;
+      --card-header: #f8fafc;
+      --border: #d2d9e4;
+      --border-subtle: #e2e8f0;
+      --text-main: #0f172a;
+      --text-muted: #526075;
+      --font-main: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      --font-mono: 'JetBrains Mono', monospace;
+    }
+
+    * { box-sizing: border-box; }
+    html { scroll-padding-top: 130px; }
+    body {
+      margin: 0;
+      min-height: 100vh;
+      background: var(--bg-slate);
+      color: var(--text-main);
+      font: 14px/1.55 var(--font-main);
+      -webkit-font-smoothing: antialiased;
+    }
+
+    h1, h2, h3, h4, p { margin: 0; }
+    button, select, input, textarea { font: inherit; color: var(--text-main); }
+    .w { max-width: 1340px; margin: 0 auto; padding: 0 20px 50px; }
+
+    /* Top Masthead & Header */
+    header {
+      position: sticky;
+      top: 0;
+      z-index: 50;
+      background: var(--navy-900);
+      color: #ffffff;
+      box-shadow: 0 4px 16px rgba(13,30,56,0.18);
+    }
+    .top-bar {
+      border-bottom: 1px solid rgba(255,255,255,0.12);
+      padding: 6px 0;
+      font-size: 11px;
+      color: #cbd5e1;
+    }
+    .top-bar .w {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding-bottom: 0;
+    }
+    .main-nav {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 12px 0 8px;
+    }
+    .brand-wrap {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      text-decoration: none;
+      color: #ffffff;
+    }
+    .brand-icon {
+      width: 36px;
+      height: 36px;
+      border-radius: 8px;
+      background: linear-gradient(135deg, #1d4ed8, #0f766e);
+      border: 1px solid rgba(255,255,255,0.25);
+      display: grid;
+      place-items: center;
+      font-weight: 800;
+      font-size: 17px;
+      color: #ffffff;
+    }
+    .brand-titles h2 {
+      font-size: 18px;
+      font-weight: 800;
+      letter-spacing: -.02em;
+      color: #ffffff;
+      line-height: 1.1;
+    }
+    .brand-titles p {
+      font-size: 11px;
+      color: #94a3b8;
+      font-weight: 500;
+    }
+    .nav-actions {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+    .header-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      border: 1px solid rgba(255,255,255,0.22);
+      border-radius: 8px;
+      background: rgba(255,255,255,0.08);
+      color: #f1f5f9;
+      padding: 9px 16px;
+      font-size: 13px;
+      font-weight: 600;
+      cursor: pointer;
+      text-decoration: none;
+      transition: all 0.22s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    .header-btn:hover {
+      background: rgba(255,255,255,0.18);
+      border-color: rgba(255,255,255,0.4);
+      color: #ffffff;
+      transform: translateY(-1.5px);
+      box-shadow: 0 4px 14px rgba(0,0,0,0.2);
+    }
+    .header-btn:active {
+      transform: translateY(0);
+      box-shadow: 0 1px 4px rgba(0,0,0,0.1);
+    }
+    @keyframes pulseGlow {
+      0% {
+        transform: scale(0.95);
+        box-shadow: 0 0 0 0 rgba(34, 197, 94, 0.7);
+      }
+      70% {
+        transform: scale(1.05);
+        box-shadow: 0 0 0 7px rgba(34, 197, 94, 0);
+      }
+      100% {
+        transform: scale(0.95);
+        box-shadow: 0 0 0 0 rgba(34, 197, 94, 0);
+      }
+    }
+    .pulse-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: #22c55e;
+      display: inline-block;
+      flex-shrink: 0;
+      animation: pulseGlow 2s infinite cubic-bezier(0.4, 0, 0.6, 1);
+    }
+
+    /* Tabs Bar (Generous sizing, fills width evenly, no dead space) */
+    .tabs-bar {
+      display: flex;
+      gap: 6px;
+      overflow-x: auto;
+      padding: 8px 0 12px;
+      scrollbar-width: thin;
+      border-top: 1px solid rgba(255,255,255,0.12);
+      width: 100%;
+    }
+    .portal-tab {
+      flex: 1 1 0;
+      min-width: max-content;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      background: rgba(255,255,255,0.06);
+      border: 1px solid rgba(255,255,255,0.12);
+      border-radius: 8px;
+      padding: 10px 14px;
+      font-size: 13px;
+      font-weight: 600;
+      color: #cbd5e1;
+      cursor: pointer;
+      white-space: nowrap;
+      transition: all 0.22s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    .portal-tab svg {
+      width: 16px;
+      height: 16px;
+      fill: none;
+      stroke: currentColor;
+      stroke-width: 2;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+      flex-shrink: 0;
+      transition: transform 0.2s ease;
+    }
+    .portal-tab:hover {
+      background: rgba(255,255,255,0.15);
+      border-color: rgba(255,255,255,0.28);
+      color: #ffffff;
+      transform: translateY(-1.5px);
+    }
+    .portal-tab:hover svg {
+      transform: scale(1.08);
+    }
+    .portal-tab:active {
+      transform: translateY(0);
+    }
+    .portal-tab.on {
+      background: #ffffff;
+      color: var(--navy-900);
+      font-weight: 700;
+      border-color: #ffffff;
+      box-shadow: 0 4px 14px rgba(0,0,0,0.18);
+      transform: translateY(-1px);
+    }
+    .portal-tab.on svg { stroke: var(--blue-accent); }
+    .tab-badge-new {
+      font-size: 9px;
+      background: var(--blue-accent);
+      color: #fff;
+      padding: 2px 6px;
+      border-radius: 4px;
+      font-weight: 800;
+      letter-spacing: .04em;
+    }
+
+    /* Page container with Smooth Slide-Fade Animation */
+    @keyframes pageSlideFade {
+      0% {
+        opacity: 0;
+        transform: translateY(10px);
+      }
+      100% {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+    .pg { display: none; padding-top: 24px; }
+    .pg.on {
+      display: block;
+      animation: pageSlideFade 0.28s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+    }
+
+    /* Normal Section Header */
+    .sec-header {
+      margin-bottom: 20px;
+      padding-bottom: 14px;
+      border-bottom: 2px solid var(--border);
+      position: relative;
+    }
+    .sec-header .eyebrow {
+      font-size: 11px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: .06em;
+      color: var(--blue-accent);
+      margin-bottom: 3px;
+      display: block;
+    }
+    .sec-header h1 {
+      font-size: 24px;
+      font-weight: 700;
+      color: var(--navy-900);
+      letter-spacing: -.02em;
+    }
+    .sec-header p {
+      color: var(--text-muted);
+      font-size: 13px;
+      margin-top: 4px;
+    }
+
+    /* Grid & Cards (Rich Contrast against Slate Background) */
+    .g { display: grid; grid-template-columns: repeat(12, 1fr); gap: 16px; margin-bottom: 16px; }
+    .s3 { grid-column: span 3; }
+    .s4 { grid-column: span 4; }
+    .s5 { grid-column: span 5; }
+    .s6 { grid-column: span 6; }
+    .s7 { grid-column: span 7; }
+    .s8 { grid-column: span 8; }
+    .s12 { grid-column: span 12; }
+
+    .c {
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 20px;
+      box-shadow: 0 1px 3px rgba(15,23,42,0.06), 0 6px 16px rgba(15,23,42,0.03);
+      min-width: 0;
+      transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.25s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.2s ease;
+    }
+    .c:hover {
+      border-color: #cbd5e1;
+      box-shadow: 0 6px 20px rgba(15,23,42,0.08), 0 1px 4px rgba(15,23,42,0.04);
+    }
+    .c h3 {
+      font-size: 16px;
+      font-weight: 700;
+      color: var(--navy-900);
+      letter-spacing: -.01em;
+    }
+    .sub {
+      color: var(--text-muted);
+      font-size: 12px;
+      margin: 3px 0 12px;
+    }
+
+    /* Key Metrics */
+    .kp {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    .c.kp:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 24px rgba(15,23,42,0.1);
+    }
+    .ic {
+      flex: none;
+      width: 44px;
+      height: 44px;
+      border-radius: 8px;
+      display: grid;
+      place-items: center;
+      background: #f1f5f9;
+      color: var(--navy-800);
+      border: 1px solid var(--border-subtle);
+      transition: transform 0.2s ease;
+    }
+    .c.kp:hover .ic {
+      transform: scale(1.06);
+    }
+    .ic svg { width: 22px; height: 22px; stroke-width: 2; }
+    .kp b {
+      display: block;
+      font-size: 26px;
+      font-weight: 800;
+      line-height: 1.1;
+      color: var(--navy-900);
+      letter-spacing: -.02em;
+    }
+    .kp span {
+      font-size: 11px;
+      color: var(--text-muted);
+      font-weight: 600;
+      text-transform: uppercase;
+    }
+
+    /* Tables */
+    .tw { overflow-x: auto; max-height: 560px; }
+    table { width: 100%; border-collapse: collapse; font-size: 13px; }
+    th {
+      position: sticky;
+      top: 0;
+      background: #f8fafc;
+      text-align: left;
+      font-size: 11px;
+      font-weight: 700;
+      color: var(--navy-800);
+      padding: 11px 10px;
+      border-bottom: 2px solid var(--border);
+      z-index: 2;
+    }
+    td {
+      padding: 11px 10px;
+      border-bottom: 1px solid var(--border-subtle);
+      color: var(--text-main);
+    }
+    tr.r {
+      cursor: pointer;
+      transition: background 0.16s ease, transform 0.16s ease;
+    }
+    tr.r:hover { background: #f1f5f9; }
+    td b { color: var(--navy-900); }
+    td small { display: block; color: var(--text-muted); font-size: 11px; margin-top: 2px; }
+
+    /* Badges & Pills */
+    .pill {
+      display: inline-block;
+      padding: 3px 8px;
+      border-radius: 4px;
+      font-size: 11px;
+      font-weight: 700;
+      white-space: nowrap;
+      transition: transform 0.18s ease;
+    }
+    .pill:hover {
+      transform: scale(1.03);
+    }
+    .badge-star { background: #ecfdf5; color: #047857; border: 1px solid #a7f3d0; }
+    .badge-gap { background: #eff6ff; color: #1d4ed8; border: 1px solid #bfdbfe; }
+    .badge-decline { background: #fffbeb; color: #b45309; border: 1px solid #fde68a; }
+    .badge-acad { background: #fff1f2; color: #be123c; border: 1px solid #fecdd3; }
+    .badge-combo { background: #f5f3ff; color: #6d28d9; border: 1px solid #ddd6fe; }
+
+    .bar {
+      height: 7px;
+      border-radius: 4px;
+      background: #e2e8f0;
+      overflow: hidden;
+      margin: 5px 0 10px;
+    }
+    .bar i {
+      display: block;
+      height: 100%;
+      border-radius: 4px;
+      background: var(--blue-accent);
+      transition: width 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    .lr { display: flex; justify-content: space-between; font-size: 12px; color: var(--text-muted); }
+    .lr b { color: var(--text-main); }
+
+    /* Form Controls */
+    .f { display: flex; gap: 10px; flex-wrap: wrap; margin-bottom: 14px; align-items: center; }
+    input, select, textarea {
+      background: #ffffff;
+      border: 1px solid var(--border);
+      border-radius: 7px;
+      padding: 10px 13px;
+      font-size: 13px;
+      transition: border-color 0.2s ease, box-shadow 0.2s ease, background-color 0.2s ease;
+    }
+    input:focus, select:focus, textarea:focus {
+      outline: none;
+      border-color: var(--blue-accent);
+      box-shadow: 0 0 0 3px rgba(29,78,216,0.14);
+    }
+    .btn {
+      background: var(--navy-900);
+      color: #ffffff;
+      border: 1px solid var(--navy-900);
+      border-radius: 8px;
+      padding: 10px 18px;
+      font-weight: 600;
+      font-size: 13.5px;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 7px;
+      transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+      box-shadow: 0 1px 2px rgba(15,23,42,0.08);
+    }
+    .btn:hover {
+      background: #0d1e38;
+      border-color: #0d1e38;
+      transform: translateY(-1.5px);
+      box-shadow: 0 4px 14px rgba(15,23,42,0.2);
+    }
+    .btn:active {
+      transform: translateY(0);
+      box-shadow: 0 1px 2px rgba(15,23,42,0.08);
+    }
+    .btn.blue {
+      background: var(--blue-accent);
+      border-color: var(--blue-accent);
+    }
+    .btn.blue:hover {
+      background: #1e40af;
+      border-color: #1e40af;
+      transform: translateY(-1.5px);
+      box-shadow: 0 4px 14px rgba(29,78,216,0.25);
+    }
+    .btn.secondary {
+      background: #ffffff;
+      color: var(--navy-900);
+      border-color: var(--border);
+    }
+    .btn.secondary:hover {
+      background: #f8fafc;
+      border-color: #cbd5e1;
+      transform: translateY(-1.5px);
+      box-shadow: 0 3px 10px rgba(0,0,0,0.07);
+    }
+    .btn.secondary:active {
+      transform: translateY(0);
+    }
+
+    /* BUG FIX 1: Heatmap Grid Styles */
+    .heat {
+      display: grid;
+      grid-template-columns: 110px repeat(4, 1fr);
+      gap: 6px;
+      text-align: center;
+      font-size: 13px;
+      margin-top: 10px;
+    }
+    .heat div {
+      padding: 10px 4px;
+      border-radius: 6px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    /* Student Drawer */
+    #dr {
+      position: fixed;
+      right: 0;
+      top: 0;
+      bottom: 0;
+      width: min(520px, 100%);
+      background: #ffffff;
+      border-left: 2px solid var(--navy-900);
+      box-shadow: -10px 0 30px rgba(0,0,0,0.18);
+      padding: 24px;
+      overflow-y: auto;
+      transform: translateX(105%);
+      transition: transform .25s ease;
+      z-index: 100;
+    }
+    #dr.on { transform: none; }
+    .x { float: right; background: none; border: 0; font-size: 26px; cursor: pointer; color: var(--text-muted); }
+
+    /* Tooltip */
+    #tt {
+      position: fixed;
+      background: var(--navy-900);
+      color: #ffffff;
+      border: 1px solid var(--border);
+      padding: 6px 12px;
+      border-radius: 6px;
+      font-size: 11px;
+      pointer-events: none;
+      display: none;
+      z-index: 110;
+    }
+
+    /* NEW FEATURE: Progress & AI Diagnostics Studio */
+    .diag-workspace {
+      display: grid;
+      grid-template-columns: 440px minmax(0, 1fr);
+      gap: 18px;
+      align-items: start;
+    }
+    @media(max-width: 960px) {
+      .diag-workspace { grid-template-columns: 1fr; }
+    }
+    .report-dossier-card {
+      background: #ffffff;
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      overflow: hidden;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+    }
+    .dossier-header {
+      background: var(--navy-900);
+      color: #ffffff;
+      padding: 18px;
+      border-bottom: 3px solid var(--blue-accent);
+    }
+    .dossier-header-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 10px;
+    }
+    .dossier-seal-badge {
+      font-size: 11px;
+      color: #93c5fd;
+      text-transform: uppercase;
+      font-weight: 700;
+      letter-spacing: .05em;
+    }
+    .dossier-student-info h2 { font-size: 20px; font-weight: 700; color: #fff; }
+    .dossier-student-info p { color: #94a3b8; font-size: 12px; margin-top: 3px; }
+    .dossier-metrics-strip {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 8px;
+      margin-top: 14px;
+      padding-top: 12px;
+      border-top: 1px solid rgba(255,255,255,0.12);
+      text-align: center;
+    }
+    .dossier-metric-item b { display: block; font-size: 18px; font-weight: 800; color: #f8fafc; }
+    .dossier-metric-item span { font-size: 10px; text-transform: uppercase; color: #94a3b8; }
+    .dossier-body { padding: 18px; }
+    .dossier-sec-title {
+      font-size: 12px;
+      font-weight: 700;
+      text-transform: uppercase;
+      color: var(--navy-900);
+      letter-spacing: .04em;
+      margin: 16px 0 8px;
+      padding-bottom: 4px;
+      border-bottom: 1px solid var(--border-subtle);
+    }
+    .dossier-sec-title:first-child { margin-top: 0; }
+
+    .ai-studio-panel {
+      background: #ffffff;
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 22px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+    }
+    .focus-selector-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
+      gap: 8px;
+      margin: 10px 0 16px;
+    }
+    .focus-option-btn {
+      text-align: left;
+      background: #f8fafc;
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      padding: 10px 12px;
+      cursor: pointer;
+      font-size: 12px;
+      transition: all .15s;
+    }
+    .focus-option-btn:hover { border-color: var(--blue-accent); background: #f1f5f9; }
+    .focus-option-btn.selected {
+      background: var(--navy-900);
+      color: #ffffff;
+      border-color: var(--navy-900);
+    }
+    .focus-option-btn strong { display: block; font-size: 12px; margin-bottom: 2px; }
+    .focus-option-btn small { display: block; font-size: 10px; opacity: .8; }
+
+    .ai-output-box {
+      margin-top: 18px;
+      background: #f8fafc;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 20px;
+      min-height: 240px;
+    }
+    .ai-output-rendered { font-size: 13.5px; line-height: 1.65; color: var(--text-main); }
+    .ai-output-rendered h2 { font-size: 18px; font-weight: 700; color: var(--navy-900); margin: 0 0 10px; }
+    .ai-output-rendered h3 { font-size: 14px; font-weight: 700; color: var(--blue-accent); text-transform: uppercase; margin: 16px 0 6px; }
+    .ai-output-rendered p { margin-bottom: 10px; }
+    .ai-output-rendered ul { margin: 6px 0 12px 20px; padding: 0; }
+    .ai-output-rendered li { margin-bottom: 4px; }
+
+    /* Copilot Chat */
+    .chat-layout { display: grid; grid-template-columns: minmax(0, 1fr) 290px; gap: 16px; }
+    .chatbox { display: flex; flex-direction: column; min-height: 540px; }
+    .chat-messages { flex: 1; display: flex; flex-direction: column; gap: 12px; max-height: 420px; overflow-y: auto; padding: 10px 2px; }
+    .msg { max-width: 88%; padding: 12px 16px; border-radius: 8px; font-size: 13.5px; line-height: 1.6; border: 1px solid var(--border); }
+    .msg.user { align-self: flex-end; background: #e0f2fe; border-color: #bae6fd; color: var(--navy-900); }
+    .msg.bot { align-self: flex-start; background: #ffffff; border-left: 4px solid var(--navy-900); }
+    .msg small { display: block; font-size: 10px; font-weight: 700; text-transform: uppercase; margin-bottom: 4px; color: var(--text-muted); }
+    .chat-compose { display: flex; gap: 8px; border-top: 1px solid var(--border); padding-top: 12px; }
+    .chat-compose input { flex: 1; }
+
+    /* Kanban */
+    .bd { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; }
+    .col { background: #f8fafc; border: 1px solid var(--border); border-radius: 8px; padding: 12px; min-height: 240px; }
+    .col h3 { font-size: 11px; font-weight: 700; text-transform: uppercase; color: var(--navy-800); margin-bottom: 10px; }
+    .tk { width: 100%; text-align: left; background: #ffffff; border: 1px solid var(--border); border-radius: 6px; padding: 10px; margin-bottom: 8px; cursor: pointer; transition: all .12s; }
+    .tk:hover { border-color: var(--blue-accent); transform: translateY(-1px); }
+    .tk b { color: var(--navy-900); font-size: 13px; }
+    .tk small { display: block; color: var(--text-muted); font-size: 11px; margin-top: 2px; }
+
+    /* Faculty Grid */
+    .fgrid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 14px; }
+    .fc { display: flex; gap: 12px; align-items: flex-start; }
+    .fa { flex: none; width: 44px; height: 44px; border-radius: 6px; display: grid; place-items: center; color: #fff; font-weight: 700; background: var(--navy-900); }
+    .fc a { display: block; color: var(--blue-accent); font-size: 12px; text-decoration: none; margin: 2px 0; }
+    .fc a:hover { text-decoration: underline; }
+
+    /* Responsive Rules (Never squish columns) */
+    @media(max-width: 900px) {
+      .s3, .s4, .s5, .s6, .s7, .s8 { grid-column: span 12 !important; }
+      .bd { grid-template-columns: 1fr 1fr; }
+      .chat-layout { grid-template-columns: 1fr; }
+      .fgrid { grid-template-columns: 1fr 1fr; }
+    }
+    @media(max-width: 580px) {
+      .bd { grid-template-columns: 1fr; }
+      .fgrid { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+<header>
+  <div class="top-bar">
+    <div class="w">
+      <span>CampusIQ University • Faculty Senate & Academic Affairs</span>
+      <span>Term: Fall 2026 • Official Faculty Intelligence Dashboard</span>
+    </div>
+  </div>
+
+  <div class="w">
+    <div class="main-nav">
+      <a class="brand-wrap" href="faculty-portal.html">
+        <div class="brand-icon">CQ</div>
+        <div class="brand-titles">
+          <h2>CAMPUSIQ</h2>
+          <p>Academic Intelligence & Student Success Platform</p>
+        </div>
+      </a>
+
+      <div class="nav-actions">
+        <button class="header-btn" onclick="CAMPUSIQ_AI.openSettingsModal()" title="Configure Real-Time AI API">
+          <span class="pulse-dot"></span>
+          <span id="headerAiBadge">● Real-Time AI Active</span>
+        </button>
+        <button class="header-btn" onclick="CAMPUSIQ_AI.openSettingsModal()">⚙ AI Settings</button>
+        <a class="header-btn" href="student-portal.html">Student Portal</a>
+        <a class="header-btn" href="index.html">Sign Out</a>
+        <button class="header-btn" id="rs">Reset Demo</button>
+      </div>
+    </div>
+
+    <nav class="tabs-bar" id="tabs" aria-label="Faculty Tabs"></nav>
+  </div>
+</header>
+
+<main class="w">
+
+  <!-- TAB 0: Institutional Overview -->
+  <section class="pg" id="p0">
+    <div class="sec-header">
+      <span class="eyebrow">Executive Summary</span>
+      <h1>Cohort Overview & Progression Benchmarks</h1>
+      <p>Continuous evaluation of undergraduate academic standing and placement readiness.</p>
+    </div>
+    <div class="g" id="kp"></div>
+    <div class="g">
+      <div class="c s7">
+        <h3>Success Compass — Academic vs Placement Quadrants</h3>
+        <p class="sub">Each node represents a student. Hover to inspect, click to filter cohort.</p>
+        <svg id="map" viewBox="0 0 420 300" style="width:100%"></svg>
+      </div>
+      <div class="c s5">
+        <h3>Performance Cohort Distribution</h3>
+        <p class="sub">Five distinct student segments and prescribed support pathways.</p>
+        <div class="dn"><svg id="dn" viewBox="0 0 200 200"></svg><div class="lgd" id="lgd"></div></div>
+      </div>
+    </div>
+    <div class="g">
+      <div class="c s6">
+        <div style="display:flex; justify-content:space-between; align-items:flex-start; margin-bottom:8px; gap:12px; flex-wrap:wrap;">
+          <div>
+            <h3>Score Trajectory Trend</h3>
+            <p class="sub" style="margin:2px 0 0;">Average progression over the past six months.</p>
+          </div>
+          <div style="display:flex; gap:12px; font-size:11.5px; font-weight:700; align-items:center; flex-shrink:0; background:#f8fafc; padding:5px 12px; border-radius:6px; border:1px solid var(--border);">
+            <span style="display:inline-flex; align-items:center; gap:6px; color:#1d4ed8;"><span style="width:8px; height:8px; border-radius:50%; background:#1d4ed8; display:inline-block;"></span> Academic</span>
+            <span style="display:inline-flex; align-items:center; gap:6px; color:#0f766e;"><span style="width:8px; height:8px; border-radius:50%; background:#0f766e; display:inline-block;"></span> Placement</span>
+          </div>
+        </div>
+        <svg id="ln" viewBox="0 0 400 200" style="width:100%"></svg>
+      </div>
+      <div class="c s6">
+        <div style="display:flex; justify-content:space-between; align-items:flex-start; margin-bottom:8px; gap:12px; flex-wrap:wrap;">
+          <div>
+            <h3>Departmental Benchmarks</h3>
+            <p class="sub" style="margin:2px 0 0;">Mean performance by academic division.</p>
+          </div>
+          <div style="display:flex; gap:12px; font-size:11.5px; font-weight:700; align-items:center; flex-shrink:0; background:#f8fafc; padding:5px 12px; border-radius:6px; border:1px solid var(--border);">
+            <span style="display:inline-flex; align-items:center; gap:6px; color:#1d4ed8;"><span style="width:8px; height:8px; border-radius:3px; background:#1d4ed8; display:inline-block;"></span> Academic</span>
+            <span style="display:inline-flex; align-items:center; gap:6px; color:#0f766e;"><span style="width:8px; height:8px; border-radius:3px; background:#0f766e; display:inline-block;"></span> Placement</span>
+          </div>
+        </div>
+        <svg id="bt" viewBox="0 0 400 200" style="width:100%"></svg>
+      </div>
+    </div>
+  </section>
+
+  <!-- TAB 1: NEW FEATURE — Student Progress & AI Diagnostics Studio -->
+  <section class="pg" id="p_diag">
+    <div class="sec-header">
+      <span class="eyebrow">Faculty Diagnostic Studio</span>
+      <h1>Student Progress Report Analysis & Real-Time AI Solutions</h1>
+      <p>Analyze multi-dimensional student performance reports (continuous marks, attendance %, coding, viva, and backlogs) and synthesize customized pedagogical interventions.</p>
+    </div>
+
+    <!-- Student Selector Toolbar -->
+    <div class="c" style="margin-bottom: 18px; padding: 14px 18px;">
+      <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:12px;">
+        <div style="display:flex; align-items:center; gap:10px; flex-wrap:wrap;">
+          <label style="font-size:12px; font-weight:700; color:var(--navy-900);">Select Student:</label>
+          <select id="diagStudentSelect" style="min-width:320px; font-weight:600;"></select>
+          <select id="diagDeptFilter">
+            <option value="">All Departments</option>
+            <option value="0">Computer Science (AI & ML)</option>
+            <option value="1">Electronics (ECE)</option>
+            <option value="2">Mechanical Engineering</option>
+            <option value="3">Civil Engineering</option>
+            <option value="4">Business Administration</option>
+          </select>
+          <input type="text" id="diagQuickSearch" placeholder="Search name or ID…" style="width:200px;">
+        </div>
+        <div>
+          <button class="btn blue" id="btnRunQuickDiag">⚡ Run Real-Time AI Analysis</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Diagnostic Workspace -->
+    <div class="diag-workspace">
+      
+      <!-- LEFT: Official Student Progress Dossier -->
+      <div class="report-dossier-card" id="studentDossierCard">
+        <div class="dossier-header">
+          <div class="dossier-header-top">
+            <span class="dossier-seal-badge">Official Academic Record</span>
+            <span id="dossierStatusBadge" class="pill badge-star">Dean's Honors</span>
+          </div>
+          <div class="dossier-student-info">
+            <h2 id="dossierName">Aarav Sharma</h2>
+            <p id="dossierSub">Roll ID: CU2401 • Department of Computer Science (AI & ML) • Semester 5</p>
+          </div>
+          <div class="dossier-metrics-strip">
+            <div class="dossier-metric-item"><b id="dossierCgpa">8.6</b><span>CGPA / 10</span></div>
+            <div class="dossier-metric-item"><b id="dossierAtt">92%</b><span>Attendance</span></div>
+            <div class="dossier-metric-item"><b id="dossierBack">0</b><span>Backlogs</span></div>
+            <div class="dossier-metric-item"><b id="dossierPlacement">39</b><span>Placement /100</span></div>
+          </div>
+        </div>
+
+        <div class="dossier-body">
+          <div class="dossier-sec-title">Continuous Internal Assessment (CIA)</div>
+          <table>
+            <thead>
+              <tr>
+                <th>Subject Name</th>
+                <th>Marks</th>
+                <th>Attnd.</th>
+                <th>Status</th>
+              </tr>
+            </thead>
+            <tbody id="dossierSubjTable"></tbody>
+          </table>
+
+          <div class="dossier-sec-title">Placement & Practical Competencies</div>
+          <div id="dossierCompetencyList"></div>
+
+          <div class="dossier-sec-title">Assigned Faculty Mentor</div>
+          <div style="font-size:12px; color:var(--text-muted); line-height:1.6;" id="dossierAdvisorInfo"></div>
+        </div>
+      </div>
+
+      <!-- RIGHT: AI Pedagogical Intervention Console -->
+      <div class="ai-studio-panel">
+        <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:14px; padding-bottom:10px; border-bottom:1px solid var(--border);">
+          <div>
+            <h3>⚡ AI Pedagogical Diagnostic & Solution Engine</h3>
+            <p class="sub" style="margin:2px 0 0;">Synthesize evidence-based academic remediation and placement solutions in real time.</p>
+          </div>
+          <span class="pill badge-gap" id="diagEngineStatus">● Real-Time Ready</span>
+        </div>
+
+        <label style="display:block; font-size:12px; font-weight:700; color:var(--navy-900); margin-bottom:6px;">Select Diagnostic Objective & Focus:</label>
+        <div class="focus-selector-grid">
+          <button class="focus-option-btn selected" data-focus="comprehensive">
+            <strong>🌟 Comprehensive Holistic Diagnostic</strong>
+            <small>360° academic + career + behavioral root-cause evaluation</small>
+          </button>
+          <button class="focus-option-btn" data-focus="subject_remediation">
+            <strong>📚 Subject Remediation & Tutoring</strong>
+            <small>Targeted study milestones for deficient coursework</small>
+          </button>
+          <button class="focus-option-btn" data-focus="placement_accelerator">
+            <strong>💼 Placement & Coding Accelerator</strong>
+            <small>Bridging practical gaps without overloading courses</small>
+          </button>
+          <button class="focus-option-btn" data-focus="attendance_recovery">
+            <strong>⏰ Attendance & Engagement Recovery</strong>
+            <small>Statutory compliance contract & mentor cadence</small>
+          </button>
+          <button class="focus-option-btn" data-focus="parent_advisory">
+            <strong>✉️ Faculty-Parent Advisory Draft</strong>
+            <small>Formal academic letter with constructive remedies</small>
+          </button>
+        </div>
+
+        <label style="display:block; font-size:12px; font-weight:700; color:var(--navy-900); margin-bottom:4px;">Faculty Observation / Teacher Notes (Optional):</label>
+        <textarea id="diagFacultyNotes" style="width:100%; min-height:55px; margin-bottom:14px;" placeholder="Add teacher remarks (e.g. 'Student struggled in lab practicals or missed recent tutorial submissions...')."></textarea>
+
+        <div style="display:flex; justify-content:space-between; align-items:center; gap:12px;">
+          <button class="btn blue" id="btnExecuteAnalysis" style="padding:10px 20px;">
+            <span>⚡ Generate Real-Time AI Diagnostic & Actionable Solutions</span>
+          </button>
+          <small style="color:var(--text-muted); font-size:11px;">Powered by Real-Time AI Engine</small>
+        </div>
+
+        <!-- AI Output Box -->
+        <div class="ai-output-box" id="aiAnalysisOutput">
+          <div id="aiEmptyPlaceholder" style="text-align:center; padding:30px 10px; color:var(--text-muted);">
+            <b style="font-size:15px; color:var(--navy-900);">Ready for Pedagogical Analysis</b>
+            <p style="font-size:12px; margin-top:4px;">Select a student and click "Generate Real-Time AI Diagnostic" to formulate root causes and concrete faculty solutions.</p>
+          </div>
+          <div id="aiAnalysisResult" class="ai-output-rendered" style="display:none;"></div>
+        </div>
+
+        <!-- Action Toolbar for Faculty -->
+        <div style="display:none; gap:10px; flex-wrap:wrap; margin-top:14px; padding-top:12px; border-top:1px solid var(--border);" id="diagActionBar">
+          <button class="btn" id="btnApplyIntervention">➕ Add to Active Interventions Board</button>
+          <button class="btn secondary" onclick="window.print()">🖨️ Export / Print Academic Dossier</button>
+          <button class="btn secondary" onclick="CAMPUSIQ_AI.openSettingsModal()">⚙ AI Provider Settings</button>
+        </div>
+
+        <!-- Interactive Faculty Follow-Up -->
+        <div style="margin-top:18px; border-top:1px solid var(--border); padding-top:14px;">
+          <label style="font-size:12px; font-weight:700; color:var(--navy-900); display:block; margin-bottom:6px;">Ask Follow-up Question Regarding This Student:</label>
+          <div style="display:flex; gap:8px;">
+            <input type="text" id="diagFollowUpInput" style="flex:1;" placeholder="Ask AI a follow-up (e.g. 'Draft a 14-day study plan', 'Provide 5 viva questions')…">
+            <button class="btn" id="btnSendFollowUp">Send ↗</button>
+          </div>
+          <div style="display:flex; gap:6px; flex-wrap:wrap; margin-top:8px;">
+            <button class="header-btn" style="color:var(--text-main); border-color:var(--border);" onclick="sendDiagPreset('Draft a 14-day revision schedule for the weakest subject.')">📅 14-Day Study Plan</button>
+            <button class="header-btn" style="color:var(--text-main); border-color:var(--border);" onclick="sendDiagPreset('Generate 5 customized technical viva questions.')">❓ 5 Viva Questions</button>
+            <button class="header-btn" style="color:var(--text-main); border-color:var(--border);" onclick="sendDiagPreset('Draft an official email notification to student.')">✉️ Meeting Notice</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- TAB 2: Students Directory -->
+  <section class="pg" id="p1">
+    <div class="sec-header">
+      <span class="eyebrow">Student Roster</span>
+      <h1>Student Directory & Performance Records</h1>
+      <p>Unified records: CGPA, attendance %, backlogs, LMS activity, and placement skills.</p>
+    </div>
+    <div class="f">
+      <input id="q" placeholder="Search name or ID…">
+      <select id="fd"></select>
+      <select id="fs"></select>
+      <span class="pill badge-gap" id="cn"></span>
+    </div>
+    <div class="c tw">
+      <table>
+        <thead>
+          <tr>
+            <th>STUDENT NAME & ID</th>
+            <th>CGPA</th>
+            <th>ATTENDANCE</th>
+            <th>BACKLOGS</th>
+            <th>ACADEMIC INDEX</th>
+            <th>PLACEMENT INDEX</th>
+            <th>SEGMENT</th>
+            <th>ACTION</th>
+          </tr>
+        </thead>
+        <tbody id="tbd"></tbody>
+      </table>
+    </div>
+  </section>
+
+  <!-- TAB 3: Risk Engine -->
+  <section class="pg" id="p2">
+    <div class="sec-header">
+      <span class="eyebrow">Evaluation Framework</span>
+      <h1>Risk & Success Assessment Engine</h1>
+      <p>Transparent evaluation formula. Adjust parameter weights to evaluate cohort risk thresholds.</p>
+    </div>
+    <div class="g">
+      <div class="c s5">
+        <h3>Policy Weight Tuning</h3>
+        <p class="sub" id="fm"></p>
+        <div class="lr"><span>Academic Component Weight</span><b id="vw"></b></div>
+        <input type="range" id="sw" min="30" max="80" style="width:100%; margin:8px 0 16px;">
+        <div class="lr"><span>Risk Threshold</span><b id="vc"></b></div>
+        <input type="range" id="scut" min="40" max="70" style="width:100%; margin:8px 0 16px;">
+        <p class="sub" style="border-left:3px solid var(--blue-accent); padding-left:10px; margin-top:12px;">
+          Formula: Academic = 35% CGPA + 20% Subject marks + 20% Attendance + 15% LMS + 10% Certifications minus 5 per backlog. Placement = 30% Coding + 25% Aptitude + 20% Interview + 15% Technical + 10% Mock interviews.
+        </p>
+      </div>
+      <div class="c s7">
+        <h3>What-If Simulation</h3>
+        <p class="sub">Adjust student parameters to observe risk classification outcomes.</p>
+        <div class="g" style="margin:0"><div class="s6" id="wi"></div><div class="s6" id="wo"></div></div>
+      </div>
+    </div>
+    <div class="c">
+      <h3>Flagged Students & Identified Score Drags</h3>
+      <p class="sub">Students requiring early faculty intervention.</p>
+      <div class="tw">
+        <table>
+          <thead>
+            <tr>
+              <th>STUDENT</th>
+              <th>FLAG</th>
+              <th>TOP SCORE DRAGS</th>
+              <th>QUICK ACTION</th>
+            </tr>
+          </thead>
+          <tbody id="fl"></tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+
+  <!-- TAB 4: Segments -->
+  <section class="pg" id="p3">
+    <div class="sec-header">
+      <span class="eyebrow">Cohort Segments</span>
+      <h1>Student Performance Segments</h1>
+      <p>Differentiated support models for each performance category.</p>
+    </div>
+    <div class="g" id="sgc"></div>
+    <div class="c">
+      <h3 id="sgt"></h3>
+      <p class="sub" id="sgp"></p>
+      <div class="tw">
+        <table>
+          <thead>
+            <tr>
+              <th>STUDENT</th>
+              <th>DEPARTMENT</th>
+              <th>ACADEMIC</th>
+              <th>PLACEMENT</th>
+              <th>TREND</th>
+              <th>RECOMMENDED INTERVENTION</th>
+            </tr>
+          </thead>
+          <tbody id="sgl"></tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+
+  <!-- TAB 5: Interventions -->
+  <section class="pg" id="p4">
+    <div class="sec-header">
+      <span class="eyebrow">Case Management</span>
+      <h1>Intervention Registry & Mentorship Kanban</h1>
+      <p>Track mentoring assignments, remedial sessions, and follow-up reviews.</p>
+    </div>
+    <div class="g" id="ist"></div>
+    <div class="bd" id="bd"></div>
+  </section>
+
+  <!-- TAB 6: Institution -->
+  <section class="pg" id="p5">
+    <div class="sec-header">
+      <span class="eyebrow">Institutional Analytics</span>
+      <h1>Curricular & Departmental Intelligence</h1>
+      <p>Departmental skill gaps, high-difficulty courses, and post-intervention outcomes.</p>
+    </div>
+    <div class="g">
+      <div class="c s6">
+        <h3>Department Technical Competencies</h3>
+        <p class="sub">Average placement-skill score across academic divisions.</p>
+        <!-- BUG FIX 1: Fixed Heatmap Grid -->
+        <div class="heat" id="hm"></div>
+      </div>
+      <div class="c s6">
+        <h3>Courses with High Difficulty</h3>
+        <p class="sub">Share of students scoring below 50%.</p>
+        <svg id="sj" viewBox="0 0 400 210" style="width:100%"></svg>
+      </div>
+    </div>
+    <div class="c">
+      <h3>Post-Intervention Progress</h3>
+      <p class="sub">Baseline assessment vs post-intervention score recovery.</p>
+      <div id="ba"></div>
+    </div>
+  </section>
+
+  <!-- TAB 7: AI Copilot -->
+  <section class="pg" id="p6">
+    <div class="sec-header">
+      <span class="eyebrow">University AI Assistant</span>
+      <h1>CampusIQ AI Academic Advisor</h1>
+      <p>Ask real-time questions about cohort trends, departmental gaps, and student success strategies.</p>
+    </div>
+    <div class="chat-layout">
+      <div class="c chatbox">
+        <div class="lr">
+          <span><b>AI Academic Advisory Desk</b></span>
+          <span id="aiBadge" style="font-weight:700; color:var(--navy-900);">● Real-Time AI Active</span>
+        </div>
+        <p class="sub">Direct real-time query interface. Powered by Google Gemini, OpenAI, Claude, or CampusIQ Academic Engine.</p>
+        <div id="chatMessages" class="chat-messages" aria-live="polite">
+          <div class="msg bot">
+            <small>CampusIQ Academic Advisor</small>
+            Welcome, Faculty Member. I am ready to assist. You can ask about cohort performance trends, request departmental diagnostic summaries, or investigate specific student progress reports.
+          </div>
+        </div>
+        <form id="chatForm" class="chat-compose">
+          <input id="chatInput" placeholder="Submit academic inquiry or cohort query..." autocomplete="off">
+          <button class="btn blue" type="submit">Send ↗</button>
+        </form>
+      </div>
+      <div class="c">
+        <h3>Suggested Inquiries</h3>
+        <p class="sub">Select a prompt to query the academic system:</p>
+        <button class="btn secondary" style="width:100%; text-align:left; margin-bottom:8px; justify-content:flex-start;" data-prompt="Provide an executive summary of the cohort's academic and placement status.">↗ Executive Cohort Summary</button>
+        <button class="btn secondary" style="width:100%; text-align:left; margin-bottom:8px; justify-content:flex-start;" data-prompt="Which students have high academic standing but critical placement readiness gaps?">◎ Identify Placement Readiness Gaps</button>
+        <button class="btn secondary" style="width:100%; text-align:left; margin-bottom:8px; justify-content:flex-start;" data-prompt="What urgent academic interventions should faculty prioritize this term?">✳ Priority Faculty Remediation Actions</button>
+        <button class="btn secondary" style="width:100%; text-align:left; margin-bottom:8px; justify-content:flex-start;" data-prompt="Compare skill benchmarks across all departments.">▦ Departmental Skill Benchmarks</button>
+        <button class="btn secondary" style="width:100%; text-align:left; margin-bottom:8px; justify-content:flex-start;" onclick="CAMPUSIQ_AI.openSettingsModal()">⚙ Configure AI API Provider</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- TAB 8: Faculty Directory -->
+  <section class="pg" id="p7">
+    <div class="sec-header">
+      <span class="eyebrow">Faculty Roster</span>
+      <h1>Faculty Directory & Office Hours</h1>
+      <p>Faculty appointments, cabin locations, and designated consultation hours.</p>
+    </div>
+    <div class="f">
+      <input id="fq" placeholder="Search professor name or course…">
+      <select id="fdp">
+        <option value="">All Departments</option>
+        <option>CSE-AI</option>
+        <option>ECE</option>
+        <option>Mech</option>
+        <option>Civil</option>
+        <option>MBA</option>
+        <option>Support</option>
+      </select>
+      <span class="pill badge-gap" id="fcn"></span>
+    </div>
+    <div class="fgrid" id="fg"></div>
+  </section>
+
+  <!-- TAB 9: Room Allocation -->
+  <section class="pg" id="p8">
+    <div class="sec-header">
+      <span class="eyebrow">Facilities</span>
+      <h1>Facility & Laboratory Allocations</h1>
+      <p>Lecture halls, computer laboratories, engineering workshops, and sanitation logs.</p>
+    </div>
+    <div class="g" id="rst"></div>
+    <div class="f" id="rch"></div>
+    <div class="c tw">
+      <table>
+        <thead>
+          <tr>
+            <th>FACILITY</th>
+            <th>TYPE</th>
+            <th>TODAY'S SCHEDULE</th>
+            <th>STATUS</th>
+          </tr>
+        </thead>
+        <tbody id="rtb"></tbody>
+      </table>
+    </div>
+    <div class="c" style="margin-top:16px">
+      <h3>Today's Practical & Viva Schedule</h3>
+      <div id="vsch"></div>
+    </div>
+  </section>
+
+</main>
+
+<!-- Slide-Out Student Dossier Drawer -->
+<aside id="dr">
+  <button class="x" onclick="$('#dr').classList.remove('on')">×</button>
+  <div id="drContent"></div>
+</aside>
+
+<div id="tt"></div>
+
+<script src="ai-client.js"></script>
+<script>
+  const $ = s => document.querySelector(s);
+  const esc = s => String(s).replace(/[&<>"]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
+  const cl = n => Math.max(0, Math.min(100, Math.round(n)));
+
+  let sd, S, T, W, CUT, F = null, G = 'gap';
+  const rn = () => (sd = sd * 16807 % 2147483647, (sd - 1) / 2147483646);
+
+  const SG = {
+    star: ['High Achievers', '#0f766e', 'Strong in both coursework and placement readiness. Offer research projects and peer tutoring roles.'],
+    gap: ['Placement Gap', '#1d4ed8', 'Strong academics, lagging in coding and interview skills. Needs targeted placement plan.'],
+    decline: ['Declining Performance', '#b45309', 'Passing now but score falling term over term. Early mentor review needed.'],
+    acad: ['Academic Support Needed', '#be123c', 'Placement skills lead coursework. Requires subject tutoring and backlog clearance.'],
+    combo: ['Combined Support', '#6d28d9', 'Needs coordinated academic and placement mentorship.']
+  };
+
+  const DP = ['Computer Science (AI & ML)', 'Electronics (ECE)', 'Mechanical Engineering', 'Civil Engineering', 'Business Administration'];
+  const DS = ['CSE-AI', 'ECE', 'Mech', 'Civil', 'MBA'];
+  const SB = [
+    ['Machine Learning', 'DBMS & SQL', 'Design & Analysis of Algorithms'],
+    ['VLSI System Design', 'Signals & Systems', 'Embedded Microcontrollers'],
+    ['Applied Thermodynamics', 'Fluid Mechanics', 'Theory of Machines'],
+    ['Structural Analysis', 'Geotechnical Engg', 'Surveying & Geomatics'],
+    ['Corporate Finance', 'Strategic Marketing', 'Business Analytics']
+  ];
+  const MN = ['Dr. R. Khanna', 'Priya Menon', 'Career Cell Advisory', 'Neha Sharma', 'Prof. A. Iyer'];
+  const FN = 'Aarav Meera Rohan Ishita Karan Fatima Aanya Arnav Bhavya Chirag Devika Eshan Farhan Gauri Harsh Isha Jatin Kiara Lakshya Manya Nikhil Omkar Pooja Rahul Sneha Tarun Uma Vedant Yamini Zaid'.split(' ');
+  const LN = 'Sharma Gupta Verma Nair Malhotra Sheikh Agarwal Bhatt Chopra Desai Fernandes Ghosh Hegde Iqbal Jain Kulkarni Lal Menon Pillai Qureshi Reddy Saxena Thakur Upadhyay Varma'.split(' ');
+
+  function mk(i) {
+    const r = rn(), q = r < .38 ? [72, 70] : r < .56 ? [74, 36] : r < .7 ? [36, 70] : [36, 36];
+    const j = () => (rn() - .5) * 34, d = Math.floor(rn() * 5), a = q[0];
+    return {
+      id: 'CU' + String(2401 + i),
+      name: FN[Math.floor(rn() * FN.length)] + ' ' + LN[Math.floor(rn() * LN.length)],
+      d,
+      sem: 3 + Math.floor(rn() * 5),
+      att: cl(a * .5 + rn() * 46),
+      cgpa: +Math.max(3.2, Math.min(9.9, a / 10 + (rn() - .5) * 1.3)).toFixed(1),
+      subj: SB[d].map(() => cl(a + j())),
+      back: a < 45 ? 1 + Math.floor(rn() * 3) : 0,
+      lms: cl(a + j()),
+      certs: Math.floor(q[1] / 25 + rn() * 1.5),
+      extra: Math.floor(rn() * 4),
+      coding: cl(q[1] + j()),
+      apt: cl(q[1] + j()),
+      intv: cl(q[1] + j()),
+      tech: cl(q[1] + j()),
+      mock: q[1] < 50 ? Math.floor(rn() * 2) : 1 + Math.floor(rn() * 3),
+      trend: Math.round((rn() - .55) * 18)
+    };
+  }
+
+  function calc(s) {
+    const sm = s.subj.reduce((x, y) => x + y, 0) / 3;
+    const act = Math.min(100, s.certs * 20 + s.extra * 15);
+    const mh = Math.min(100, s.mock * 40 + s.certs * 10);
+    s.af = [
+      ['CGPA Score', s.cgpa * 10, .35],
+      ['Subject Marks', sm, .2],
+      ['Attendance %', s.att, .2],
+      ['LMS Activity', s.lms, .15],
+      ['Certifications', act, .1]
+    ];
+    s.pf = [
+      ['Coding Skills', s.coding, .3],
+      ['Aptitude', s.apt, .25],
+      ['Interview Communication', s.intv, .2],
+      ['Technical Core', s.tech, .15],
+      ['Mock Interviews', mh, .1]
+    ];
+    s.A = cl(s.af.reduce((x, f) => x + f[1] * f[2], 0) - s.back * 5);
+    s.P = cl(s.pf.reduce((x, f) => x + f[1] * f[2], 0));
+    s.sc = cl(W * s.A + (1 - W) * s.P);
+    s.s = s.A < CUT && s.P < CUT ? 'combo' : s.A >= CUT && s.trend <= -6 ? 'decline' : s.A >= CUT && s.P < CUT ? 'gap' : s.A < CUT ? 'acad' : 'star';
+  }
+
+  const why = s => [...s.af.map(f => [f[0], f[1], (f[1] - 60) * f[2] * W]), ...s.pf.map(f => [f[0], f[1], (f[1] - 60) * f[2] * (1 - W)])].sort((a, b) => a[2] - b[2]);
+  const col = v => v >= 65 ? '#15803d' : v >= 50 ? '#b45309' : '#be123c';
+  const pl = s => `<span class="pill badge-${s.s}">${SG[s.s][0]}</span>`;
+
+  function plan(s) {
+    const w = s.pf.filter(f => ['Coding Skills', 'Aptitude', 'Mock Interviews', 'Interview Communication'].includes(f[0])).sort((a, b) => a[1] - b[1]).slice(0, 2).map(f => f[0].toLowerCase());
+    const sj = SB[s.d][s.subj.indexOf(Math.min(...s.subj))];
+    return {
+      gap: ['Placement Readiness Plan', `Focus on ${w.join(' and ')}: two practice problem sets weekly, book mock interviews, monthly mentor review.`],
+      decline: ['Performance Decline Review', `Continuous evaluation score trend ${s.trend}. Faculty check-in scheduled, syllabus revision for ${sj}.`],
+      acad: ['Subject Tutoring Plan', `Intensive tutoring on ${sj}; clear backlog exam; maintain placement momentum.`],
+      combo: ['Unified Academic & Placement Plan', `One mentor: ${sj} subject tutoring coupled with weekly ${w.join('/')} practical drills.`],
+      star: ['Honors & Leadership Pathway', `Advanced projects, competitive hackathons, or appointment as peer tutor.`]
+    }[s.s];
+  }
+
+  const TB = [
+    ['Overview', 'g', '<rect x="3" y="3" width="7" height="7" rx="2"/><rect x="14" y="3" width="7" height="7" rx="2"/><rect x="3" y="14" width="7" height="7" rx="2"/><rect x="14" y="14" width="7" height="7" rx="2"/>'],
+    ['Progress & AI Diagnostics', 'd', '<path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/>', true],
+    ['Students', 's', '<path d="M17 20v-2a4 4 0 00-4-4H7a4 4 0 00-4 4v2"/><circle cx="10" cy="8" r="4"/><path d="M21 20v-2a4 4 0 00-3-3.9M16 4.1a4 4 0 010 7.8"/>'],
+    ['Risk Engine', 'e', '<path d="M13 2L4 14h7l-1 8 9-12h-7z"/>'],
+    ['Segments', 'p', '<path d="M21 12a9 9 0 11-9-9v9z"/><path d="M15 3a9 9 0 016 6h-6z"/>'],
+    ['Interventions', 'i', '<circle cx="12" cy="12" r="9"/><path d="M8 12.5l3 3 5-6"/>'],
+    ['Institution', 'n', '<circle cx="12" cy="12" r="9"/><path d="M15.5 8.5l-2 5-5 2 2-5z"/>'],
+    ['AI Copilot', 'a', '<path d="M12 3v3M12 18v3M3 12h3M18 12h3M5.6 5.6l2.1 2.1M16.3 16.3l2.1 2.1M18.4 5.6l-2.1 2.1M7.7 16.3l-2.1 2.1"/><circle cx="12" cy="12" r="4"/>'],
+    ['Faculty', 'f', '<rect x="3" y="4" width="18" height="16" rx="2"/><circle cx="9" cy="11" r="2.5"/><path d="M5.5 17c.6-2 2-3 3.5-3s2.9 1 3.5 3M14.5 9.5h4M14.5 13h4"/>'],
+    ['Rooms', 'r', '<rect x="5" y="3" width="14" height="18" rx="1.5"/><path d="M9 21v-5h6v5M9 7h2M13 7h2M9 11h2M13 11h2"/>']
+  ];
+
+  let cur = 0;
+  function tabs() {
+    $('#tabs').innerHTML = TB.map((t, i) => `
+      <button class="portal-tab ${i == cur ? 'on' : ''}" onclick="go(${i})">
+        <svg viewBox="0 0 24 24">${t[2]}</svg>
+        ${t[0]}
+        ${t[4] ? '<span class="tab-badge-new">NEW</span>' : ''}
+      </button>
+    `).join('');
+
+    const pageIds = ['p0', 'p_diag', 'p1', 'p2', 'p3', 'p4', 'p5', 'p6', 'p7', 'p8'];
+    pageIds.forEach((id, i) => {
+      const el = document.getElementById(id);
+      if (el) el.classList.toggle('on', i === cur);
+    });
+  }
+
+  function go(i) {
+    cur = i;
+    tabs();
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+
+  const av = (x, k) => x.length ? Math.round(x.reduce((a, s) => a + s[k], 0) / x.length) : 0;
+  const ic = (p, c) => `<span class="ic"><svg viewBox="0 0 24 24">${p}</svg></span>`;
+
+  function ov() {
+    const rk = S.filter(s => ['combo', 'acad', 'decline'].includes(s.s)).length;
+    $('#kp').innerHTML = [
+      [TB[2][2], S.length, 'Total Students', '#0f766e'],
+      [TB[3][2], av(S, 'sc'), 'Average Success Score', '#1d4ed8'],
+      [TB[4][2], rk, 'Academic Alerts', '#be123c'],
+      [TB[5][2], Math.round(S.filter(s => s.P >= CUT).length / S.length * 100) + '%', 'Placement Ready', '#b45309']
+    ].map(k => `
+      <div class="c s3 kp">
+        ${ic(k[0], k[3])}
+        <div>
+          <b>${k[1]}</b>
+          <span>${k[2]}</span>
+        </div>
+      </div>
+    `).join('');
+    map();
+    dn();
+
+    const OF = [9, 7, 5, 3, 1.5, 0];
+    const sm = p => p.map((q, i) => i ? `C${(p[i - 1][0] + q[0]) / 2} ${p[i - 1][1]} ${(p[i - 1][0] + q[0]) / 2} ${q[1]} ${q[0]} ${q[1]}` : `M${q[0]} ${q[1]}`).join('');
+    const ln = (e, c) => {
+      const p = OF.map((o, i) => [34 + i * 68, 176 - (e - o) * 1.5]);
+      return `<path d="${sm(p)}" fill="none" stroke="${c}" stroke-width="3" stroke-linecap="round"/><circle cx="${p[5][0]}" cy="${p[5][1]}" r="5" fill="${c}"/>`;
+    };
+    $('#ln').innerHTML = [0, 50, 100].map(v => `<line x1="34" x2="380" y1="${176 - v * 1.5}" y2="${176 - v * 1.5}" stroke="#e2e8f0"/><text x="4" y="${180 - v * 1.5}" font-size="10" fill="#64748b">${v}</text>`).join('') + ln(av(S, 'A'), '#1d4ed8') + ln(av(S, 'P'), '#0f766e') + ['May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct'].map((m, i) => `<text x="${34 + i * 68}" y="195" text-anchor="middle" font-size="10" fill="#64748b">${m}</text>`).join('');
+
+    $('#bt').innerHTML = [0, 50, 100].map(v => `<line x1="30" x2="390" y1="${176 - v * 1.5}" y2="${176 - v * 1.5}" stroke="#e2e8f0"/><text x="2" y="${180 - v * 1.5}" font-size="10" fill="#64748b">${v}</text>`).join('') + DP.map((d, i) => {
+      const x = S.filter(s => s.d === i), a = av(x, 'A'), p = av(x, 'P'), X = 36 + i * 72;
+      return `<rect x="${X}" y="${176 - a * 1.5}" width="24" height="${a * 1.5}" rx="3" fill="#1d4ed8"/><rect x="${X + 27}" y="${176 - p * 1.5}" width="24" height="${p * 1.5}" rx="3" fill="#0f766e"/><text x="${X + 25}" y="194" text-anchor="middle" font-size="10" fill="#334155">${DS[i]}</text><text x="${X + 12}" y="${170 - a * 1.5}" text-anchor="middle" font-size="10" fill="#1d4ed8" font-weight="700">${a}</text><text x="${X + 39}" y="${170 - p * 1.5}" text-anchor="middle" font-size="10" fill="#0f766e" font-weight="700">${p}</text>`;
+    }).join('');
+  }
+
+  function map() {
+    const X = p => 34 + p * 3.8, Y = a => 272 - a * 2.6;
+    $('#map').innerHTML = `<rect x="34" y="12" width="380" height="260" rx="6" fill="#ffffff" stroke="#cbd5e1"/><line x1="${X(CUT)}" y1="12" x2="${X(CUT)}" y2="272" stroke="#94a3b8" stroke-dasharray="4"/><line x1="34" y1="${Y(CUT)}" x2="414" y2="${Y(CUT)}" stroke="#94a3b8" stroke-dasharray="4"/><text x="42" y="28" fill="#1d4ed8" font-weight="700" font-size="10">HIGH ACADEMIC • LOW PLACEMENT</text><text x="406" y="266" text-anchor="end" font-size="10" fill="#64748b">LOW ACADEMIC • HIGH PLACEMENT</text><text x="224" y="294" text-anchor="middle" font-size="11" fill="#334155" font-weight="600">Placement Readiness Index →</text><text x="12" y="150" transform="rotate(-90 12 150)" text-anchor="middle" font-size="11" fill="#334155" font-weight="600">Academic Score ↑</text>` + S.map((s, i) => `<circle data-i="${i}" cx="${X(s.P)}" cy="${Y(s.A)}" r="5" fill="${SG[s.s][1]}" opacity="${!F || F === s.s ? .9 : .1}" style="cursor:pointer;transition:opacity .2s"/>`).join('');
+  }
+
+  function dn() {
+    const K = Object.keys(SG), N = K.map(k => S.filter(s => s.s === k).length), C = 2 * Math.PI * 70;
+    let o = 0;
+    $('#dn').innerHTML = K.map((k, i) => {
+      const l = N[i] / S.length * C, e = `<circle cx="100" cy="100" r="70" fill="none" stroke="${SG[k][1]}" stroke-width="${F === k ? 24 : 18}" stroke-dasharray="${Math.max(l - 3, 0)} ${C}" stroke-dashoffset="${-o}" transform="rotate(-90 100 100)" opacity="${!F || F === k ? 1 : .25}" style="transition:.3s;"/>`;
+      o += l;
+      return e;
+    }).join('') + `<text x="100" y="104" text-anchor="middle" font-size="28" font-weight="800" fill="#0d1e38">${F ? N[K.indexOf(F)] : S.length}</text><text x="100" y="122" text-anchor="middle" font-size="11" fill="#64748b">${F ? SG[F][0].split(' ')[0] : 'Students'}</text>`;
+    $('#lgd').innerHTML = K.map((k, i) => `<button class="${F === k ? 'on' : ''}" data-f="${k}" style="display:flex;align-items:center;gap:8px;padding:6px;width:100%;border:0;background:none;cursor:pointer;font-size:12px;text-align:left;"><i style="display:inline-block;width:10px;height:10px;border-radius:2px;background:${SG[k][1]};"></i>${SG[k][0]}<em style="margin-left:auto;font-style:normal;font-weight:700;">${N[i]}</em></button>`).join('');
+  }
+
+  function radar(s) {
+    const R = [['Continuous Marks', s.af[1][1]], ['Attendance', s.att], ['Coding', s.coding], ['Aptitude', s.apt], ['Mock Interview', s.pf[4][1]]];
+    const pt = (i, v) => { const a = -Math.PI / 2 + i * 2 * Math.PI / 5; return [150 + Math.cos(a) * v * .9, 115 + Math.sin(a) * v * .9]; };
+    const pp = v => R.map((_, i) => pt(i, v).join(',')).join(' ');
+    return `<svg viewBox="0 0 300 235" style="width:100%">` + [100, 66, 33].map(v => `<polygon points="${pp(v)}" fill="none" stroke="#e2e8f0"/>`).join('') + `<polygon points="${pp(CUT)}" fill="none" stroke="#b45309" stroke-dasharray="4"/><polygon points="${R.map((r, i) => pt(i, r[1]).join(',')).join(' ')}" fill="${SG[s.s][1]}26" stroke="${SG[s.s][1]}" stroke-width="2.5"/>` + R.map((r, i) => { const [x, y] = pt(i, r[1]), [lx, ly] = pt(i, 119); return `<circle cx="${x}" cy="${y}" r="4" fill="${r[1] < CUT ? '#be123c' : '#15803d'}"/><text x="${lx}" y="${ly}" text-anchor="middle" font-size="10" fill="#334155">${r[0]} ${Math.round(r[1])}</text>`; }).join('') + '</svg>';
+  }
+
+  function stu() {
+    const q = $('#q').value.toLowerCase(), d = $('#fd').value, g = $('#fs').value;
+    const L = S.filter(s => (!q || (s.name + s.id).toLowerCase().includes(q)) && (d === '' || s.d == d) && (!g || s.s === g)).sort((a, b) => a.sc - b.sc);
+    $('#cn').textContent = L.length + ' Students';
+    $('#tbd').innerHTML = L.slice(0, 80).map(s => `
+      <tr class="r" data-o="${s.id}">
+        <td><b>${esc(s.name)}</b><small>${s.id} • ${DS[s.d]} • Sem ${s.sem}</small></td>
+        <td><b>${s.cgpa}</b></td>
+        <td>${s.att}%</td>
+        <td>${s.back ? `<span style="color:#be123c;font-weight:700;">${s.back}</span>` : '0'}</td>
+        <td style="color:${col(s.A)};font-weight:700;">${s.A}</td>
+        <td style="color:${col(s.P)};font-weight:700;">${s.P}</td>
+        <td>${pl(s)}</td>
+        <td>
+          <button class="btn secondary" style="padding:4px 8px;font-size:11px;" onclick="event.stopPropagation();openStudentInDiag('${s.id}')">⚡ AI Analyze</button>
+        </td>
+      </tr>
+    `).join('');
+  }
+
+  function op(id) {
+    const s = S.find(z => z.id === id), p = plan(s), o = T.filter(t => t.sid === id);
+    $('#drContent').innerHTML = `
+      <h2 style="font-size:20px; font-weight:700; color:var(--navy-900); margin-top:10px;">${esc(s.name)}</h2>
+      <p class="sub">${s.id} • ${DP[s.d]} • Semester ${s.sem}</p>
+      <div style="margin:10px 0;">${pl(s)} <span style="color:var(--text-muted);font-size:12px;margin-left:8px;">Success Index: <b style="color:var(--navy-900);">${s.sc}</b></span></div>
+      
+      <div style="margin:14px 0;">
+        <button class="btn blue" style="width:100%; justify-content:center;" onclick="$('#dr').classList.remove('on'); openStudentInDiag('${s.id}')">
+          ⚡ Open Full Progress Report & AI Diagnostics →
+        </button>
+      </div>
+
+      ${radar(s)}
+      <div class="lr"><span>Academic Score</span><b>${s.A}</b></div>
+      <div class="bar"><i style="width:${s.A}%;--c:${col(s.A)};background:${col(s.A)}"></i></div>
+      <div class="lr"><span>Placement Readiness</span><b>${s.P}</b></div>
+      <div class="bar"><i style="width:${s.P}%;--c:${col(s.P)};background:${col(s.P)}"></i></div>
+
+      <h3 style="margin-top:14px; font-size:14px;">Identified Score Drags</h3>
+      ${why(s).slice(0, 3).map(f => `<div class="lr" style="margin-top:6px"><span>${f[0]} (${Math.round(f[1])})</span><b style="color:#be123c">${f[2].toFixed(1)}</b></div>`).join('')}
+
+      <h3 style="margin-top:16px; font-size:14px;">Unified Record Breakdown</h3>
+      <p class="sub">CGPA ${s.cgpa} • Attendance ${s.att}% • Backlogs ${s.back} • LMS ${s.lms} • Certifications ${s.certs} • Mock Interviews ${s.mock} • Trend ${s.trend > 0 ? '+' : ''}${s.trend}<br>Courses: ${SB[s.d].map((n, j) => n + ' (' + s.subj[j] + ')').join(' • ')}</p>
+
+      <p class="sub" style="border-left:3px solid var(--blue-accent); padding-left:10px; margin-top:12px;"><b>Prescribed Directive:</b> ${p[1]}</p>
+
+      <div class="f" style="margin-top:14px">
+        <select id="dm" style="flex:1;">${MN.map(m => `<option>${m}</option>`).join('')}</select>
+        <button class="btn" onclick="mkI('${s.id}')">Create Intervention</button>
+      </div>
+      ${o.length ? `<p class="sub" style="margin-top:8px;">Active Case: ${o.map(t => t.type + ' (' + ST[t.st] + ')').join(', ')}</p>` : ''}
+    `;
+    $('#dr').classList.add('on');
+  }
+
+  function mkI(id) {
+    const s = S.find(z => z.id === id);
+    const p = plan(s);
+    T.unshift({ sid: id, st: 1, mentor: $('#dm').value, type: p[0], act: p[1] });
+    $('#dr').classList.remove('on');
+    iv();
+    go(5);
+  }
+
+  let V = { m: 84, a: 92, c: 34, p: 41, k: 0 };
+  function eng() {
+    $('#vw').textContent = Math.round(W * 100) + '% / ' + Math.round((1 - W) * 100) + '%';
+    $('#vc').textContent = CUT;
+    $('#fm').textContent = 'Formula: ' + Math.round(W * 100) + '% Academic + ' + Math.round((1 - W) * 100) + '% Placement';
+    wo();
+    $('#fl').innerHTML = S.filter(s => s.s !== 'star').sort((a, b) => a.sc - b.sc).slice(0, 20).map(s => `
+      <tr class="r" data-o="${s.id}">
+        <td><b>${esc(s.name)}</b><small>${s.id} • ${DS[s.d]}</small></td>
+        <td>${pl(s)}</td>
+        <td>${why(s).slice(0, 3).map(f => f[0] + ' ' + Math.round(f[1])).join(' • ')}</td>
+        <td><button class="btn secondary" style="padding:3px 8px;font-size:11px;" onclick="event.stopPropagation();openStudentInDiag('${s.id}')">⚡ AI Analyze</button></td>
+      </tr>
+    `).join('');
+  }
+
+  function wo() {
+    const A = cl(.6 * V.m + .4 * V.a), P = cl(.35 * V.c + .35 * V.p + .3 * Math.min(100, V.k * 35 + 15));
+    const s = A < CUT && P < CUT ? 'combo' : A >= CUT && P < CUT ? 'gap' : A < CUT ? 'acad' : 'star';
+    $('#wo').innerHTML = `
+      <div class="lr"><span>Verdict</span><b>${A >= CUT ? '✓ Satisfactory' : '⚠ Academic Alert'}</b></div>
+      <span class="pill badge-${s}" style="margin:8px 0;display:inline-block;">${SG[s][0]}</span>
+      <div class="lr"><span>Academic Score</span><b>${A}</b></div>
+      <div class="bar"><i style="width:${A}%;background:${col(A)}"></i></div>
+      <div class="lr"><span>Placement Readiness</span><b>${P}</b></div>
+      <div class="bar"><i style="width:${P}%;background:${col(P)}"></i></div>
+      <p class="sub" style="margin-top:8px;">${SG[s][2]}</p>
+    `;
+  }
+
+  function sgs() {
+    const K = Object.keys(SG);
+    $('#sgc').innerHTML = K.map(k => `
+      <div class="c s3" style="cursor:pointer; border-left:4px solid ${SG[k][1]};" data-g="${k}">
+        <b style="font-size:28px; font-weight:800; color:${SG[k][1]};">${S.filter(s => s.s === k).length}</b>
+        <h3 style="font-size:14px; margin:4px 0;">${SG[k][0]}</h3>
+        <p class="sub">${SG[k][2]}</p>
+      </div>
+    `).join('');
+    const L = S.filter(s => s.s === G).sort((a, b) => a.sc - b.sc);
+    $('#sgt').textContent = SG[G][0] + ' • ' + L.length + ' Students';
+    $('#sgp').textContent = 'Recommended Action: ' + (L[0] ? plan(L[0])[0] : '—');
+    $('#sgl').innerHTML = L.slice(0, 25).map(s => `
+      <tr class="r" data-o="${s.id}">
+        <td><b>${esc(s.name)}</b><small>${s.id}</small></td>
+        <td>${DS[s.d]}</td>
+        <td>${s.A}</td>
+        <td>${s.P}</td>
+        <td>${s.trend > 0 ? '+' : ''}${s.trend}</td>
+        <td>${plan(s)[0]}</td>
+      </tr>
+    `).join('');
+  }
+
+  const ST = ['Directive Recommended', 'Assigned to Faculty Advisor', 'Remedial Session Delivered', 'Follow-up Audited'];
+  const SC = ['#6d28d9', '#0f766e', '#1d4ed8', '#b45309'];
+
+  function iv() {
+    $('#ist').innerHTML = ST.map((t, i) => `
+      <div class="c s3 kp">
+        <div>
+          <b style="color:${SC[i]}">${T.filter(x => x.st === i).length}</b>
+          <span>${t}</span>
+        </div>
+      </div>
+    `).join('');
+    $('#bd').innerHTML = ST.map((h, i) => `
+      <div class="col">
+        <h3>${h}</h3>
+        ${T.map((t, j) => {
+          const s = S.find(z => z.id === t.sid);
+          return t.st === i ? `
+            <button class="tk" data-t="${j}">
+              <b>${esc(s ? s.name : t.sid)}</b>
+              <small>${t.type} • ${t.mentor}</small>
+              <small style="color:${SC[i]}; font-weight:700;">${i < 3 ? 'Tap to advance stage →' : '✓ Closed Loop'}</small>
+            </button>
+          ` : '';
+        }).join('')}
+      </div>
+    `).join('');
+  }
+
+  // BUG FIX 1: ins() with proper heatmap formatting
+  function ins() {
+    const K = [['coding', 'Coding'], ['apt', 'Aptitude'], ['intv', 'Interview'], ['tech', 'Technical']];
+    $('#hm').innerHTML = '<div></div>' + K.map(k => `<div><b>${k[1]}</b></div>`).join('') + DP.map((d, i) => {
+      const x = S.filter(s => s.d === i);
+      return `<div style="text-align:left; font-weight:700; color:var(--navy-900);">${DS[i]}</div>` + K.map(k => {
+        const v = av(x, k[0]);
+        return `<div style="background:${col(v)};color:#fff;font-weight:700;border-radius:4px;padding:8px 4px;">${v}</div>`;
+      }).join('');
+    }).join('');
+
+    const r = [];
+    DP.forEach((d, i) => {
+      const x = S.filter(s => s.d === i);
+      SB[i].forEach((n, j) => r.push([n, DS[i], Math.round(x.filter(s => s.subj[j] < 50).length / x.length * 100)]));
+    });
+    r.sort((a, b) => b[2] - a[2]);
+    const m = Math.max(...r.slice(0, 6).map(x => x[2]), 1);
+    $('#sj').innerHTML = r.slice(0, 6).map((x, i) => `
+      <text x="0" y="${24 + i * 32}" font-size="11" fill="#334155">${x[0]} • ${x[1]}</text>
+      <rect x="180" y="${12 + i * 32}" width="${x[2] / m * 170}" height="14" rx="3" fill="#be123c"/>
+      <text x="${186 + x[2] / m * 170}" y="${24 + i * 32}" font-size="11" fill="#be123c" font-weight="700">${x[2]}%</text>
+    `).join('');
+
+    $('#ba').innerHTML = [
+      ['Ishita Nair', 'Targeted Subject Tutoring', [76, 81], [69, 70]],
+      ['Fatima Sheikh', 'Mock Interviews & Algorithmic Practice', [73, 74], [46, 61]],
+      ['Tarun Bhatt', 'Remedial Coursework & Backlog Clearance', [44, 53], [63, 64]]
+    ].map(x => `
+      <div class="lr" style="padding:10px 0;border-top:1px solid var(--border);">
+        <span><b>${x[0]}</b> • ${x[1]}</span>
+        <span>Academic ${x[2][0]} → <b style="color:#15803d;">${x[2][1]}</b> • Placement ${x[3][0]} → <b style="color:#15803d;">${x[3][1]}</b></span>
+      </div>
+    `).join('');
+  }
+
+  // AI Copilot Chat
+  function addMsg(text, who) {
+    const box = $('#chatMessages'), el = document.createElement('div');
+    el.className = 'msg ' + who;
+    const label = document.createElement('small');
+    label.textContent = who === 'user' ? 'Faculty Member' : 'CampusIQ AI Advisor';
+    el.appendChild(label);
+    const content = document.createElement('div');
+    content.innerHTML = who === 'bot' ? CAMPUSIQ_AI.renderMarkdown(text) : esc(text);
+    el.appendChild(content);
+    box.appendChild(el);
+    box.scrollTop = box.scrollHeight;
+    return el;
+  }
+  function setMsg(el, t) {
+    el.lastElementChild.innerHTML = CAMPUSIQ_AI.renderMarkdown(t);
+    $('#chatMessages').scrollTop = 1e9;
+  }
+
+  const fHist = [];
+  async function sendChat(q) {
+    q = (q || '').trim();
+    if (!q) return;
+    addMsg(q, 'user');
+    const el = addMsg('Consulting Real-Time Academic AI…', 'bot');
+    try {
+      fHist.push({ role: 'user', content: q });
+      const r = await CAMPUSIQ_AI.ask('faculty', aiContext(), fHist.slice(-8));
+      fHist.push({ role: 'assistant', content: r });
+      setMsg(el, r);
+    } catch (e) {
+      fHist.pop();
+      setMsg(el, `Error: ${e.message}`);
+    }
+  }
+
+  function aiContext() {
+    return JSON.stringify({
+      cohort: { students: S.length, avgAcademic: av(S, 'A'), avgPlacement: av(S, 'P') },
+      flaggedCount: S.filter(s => s.s !== 'star').length,
+      departments: DP.map((d, i) => ({
+        dept: d,
+        students: S.filter(s => s.d === i).length,
+        academic: av(S.filter(s => s.d === i), 'A'),
+        placement: av(S.filter(s => s.d === i), 'P')
+      }))
+    });
+  }
+
+  // ==========================================
+  // PROGRESS REPORT ANALYSIS LOGIC (NEW FEATURE)
+  // ==========================================
+  let activeDiagStudent = null;
+  let activeFocus = 'comprehensive';
+
+  function initDiagDropdown() {
+    const sel = $('#diagStudentSelect');
+    const dept = $('#diagDeptFilter').value;
+    const search = ($('#diagQuickSearch').value || '').toLowerCase();
+
+    const filtered = S.filter(s => {
+      const matchDept = dept === '' || s.d == dept;
+      const matchSearch = !search || (s.name + s.id).toLowerCase().includes(search);
+      return matchDept && matchSearch;
+    });
+
+    sel.innerHTML = filtered.map(s => `
+      <option value="${s.id}" ${activeDiagStudent && activeDiagStudent.id === s.id ? 'selected' : ''}>
+        ${s.id} — ${s.name} (${DS[s.d]}, CGPA ${s.cgpa}, Att: ${s.att}%, ${SG[s.s][0]})
+      </option>
+    `).join('');
+
+    if (filtered.length && (!activeDiagStudent || !filtered.find(x => x.id === activeDiagStudent.id))) {
+      renderStudentProgressDossier(filtered[0].id);
+    }
+  }
+
+  function renderStudentProgressDossier(studentId) {
+    const s = S.find(x => x.id === studentId);
+    if (!s) return;
+    activeDiagStudent = s;
+
+    // Header info
+    $('#dossierName').textContent = s.name;
+    $('#dossierSub').textContent = `Roll ID: ${s.id} • Department: ${DP[s.d]} • Semester ${s.sem}`;
+    $('#dossierCgpa').textContent = s.cgpa;
+    $('#dossierAtt').textContent = s.att + '%';
+    $('#dossierBack').textContent = s.back;
+    $('#dossierPlacement').textContent = s.P;
+
+    const b = $('#dossierStatusBadge');
+    b.textContent = SG[s.s][0];
+    b.className = 'pill badge-' + s.s;
+
+    // Subject breakdown table
+    const subs = SB[s.d];
+    $('#dossierSubjTable').innerHTML = subs.map((sub, idx) => {
+      const mark = s.subj[idx];
+      const isPass = mark >= 50;
+      return `
+        <tr>
+          <td><b>${sub}</b></td>
+          <td><b style="color:${isPass ? '#0f766e' : '#be123c'};">${mark}</b> / 100</td>
+          <td>${s.att}%</td>
+          <td>${isPass ? '<span class="pill badge-star">Cleared</span>' : '<span class="pill badge-acad">Deficient</span>'}</td>
+        </tr>
+      `;
+    }).join('');
+
+    // Competency matrix
+    $('#dossierCompetencyList').innerHTML = `
+      <div style="margin:10px 0;">
+        <div class="lr"><span>Coding Skills</span><b>${s.coding} / 100</b></div>
+        <div class="bar"><i style="width:${s.coding}%;background:${col(s.coding)}"></i></div>
+      </div>
+      <div style="margin:10px 0;">
+        <div class="lr"><span>Quantitative Aptitude</span><b>${s.apt} / 100</b></div>
+        <div class="bar"><i style="width:${s.apt}%;background:${col(s.apt)}"></i></div>
+      </div>
+      <div style="margin:10px 0;">
+        <div class="lr"><span>Technical Viva Core</span><b>${s.tech} / 100</b></div>
+        <div class="bar"><i style="width:${s.tech}%;background:${col(s.tech)}"></i></div>
+      </div>
+      <div style="margin:10px 0;">
+        <div class="lr"><span>Mock Interviews Attended</span><b>${s.mock} sessions (60 days)</b></div>
+      </div>
+    `;
+
+    // Advisor info
+    const advisor = MN[s.d % MN.length];
+    $('#dossierAdvisorInfo').innerHTML = `
+      <strong>Assigned Faculty Mentor:</strong> ${advisor}<br>
+      <strong>Score Trajectory:</strong> ${s.trend > 0 ? '+' : ''}${s.trend} pts term-over-term<br>
+      <strong>LMS Engagement:</strong> ${s.lms} / 100 • <strong>Certifications:</strong> ${s.certs} verified
+    `;
+  }
+
+  function openStudentInDiag(studentId) {
+    go(1);
+    renderStudentProgressDossier(studentId);
+    $('#diagStudentSelect').value = studentId;
+    executeAIProgressAnalysis();
+  }
+
+  async function executeAIProgressAnalysis() {
+    if (!activeDiagStudent) return;
+    const s = activeDiagStudent;
+    const notes = $('#diagFacultyNotes').value.trim();
+
+    $('#aiEmptyPlaceholder').style.display = 'none';
+    const outBox = $('#aiAnalysisResult');
+    outBox.style.display = 'block';
+    outBox.innerHTML = `
+      <div style="padding:20px; text-align:center;">
+        <div class="pulse-dot" style="margin:0 auto 10px; width:12px; height:12px;"></div>
+        <strong style="font-size:15px; color:var(--navy-900);">Synthesizing Real-Time Academic Diagnostic…</strong>
+        <p style="font-size:12px; color:var(--text-muted); margin-top:4px;">Disaggregating course marks, attendance %, and placement metrics for ${s.name} (${s.id})…</p>
+      </div>
+    `;
+    $('#diagActionBar').style.display = 'none';
+
+    try {
+      const studentPayload = {
+        name: s.name,
+        id: s.id,
+        department: DP[s.d],
+        semester: s.sem,
+        cgpa: s.cgpa,
+        attendance: s.att,
+        backlogs: s.back,
+        academicScore: s.A,
+        placementReadiness: s.P,
+        mentor: MN[s.d % MN.length],
+        subjects: SB[s.d].map((title, i) => [title, s.subj[i], s.att]),
+        coding: s.coding,
+        aptitude: s.apt,
+        viva: s.tech,
+        mockInterviews: s.mock,
+        trend: s.trend,
+        drags: why(s).slice(0, 3).map(f => f[0] + ' (' + Math.round(f[1]) + ')')
+      };
+
+      const markdown = await CAMPUSIQ_AI.analyzeProgressReport(studentPayload, activeFocus, notes);
+      outBox.innerHTML = CAMPUSIQ_AI.renderMarkdown(markdown);
+      $('#diagActionBar').style.display = 'flex';
+      outBox.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+    } catch (e) {
+      outBox.innerHTML = `<div style="color:#be123c; font-weight:700;">Diagnostic Generation Error: ${esc(e.message)}</div>`;
+    }
+  }
+
+  async function sendDiagPreset(queryText) {
+    $('#diagFollowUpInput').value = queryText;
+    await sendDiagFollowUp();
+  }
+
+  async function sendDiagFollowUp() {
+    const input = $('#diagFollowUpInput');
+    const q = input.value.trim();
+    if (!q || !activeDiagStudent) return;
+    input.value = '';
+
+    const outBox = $('#aiAnalysisResult');
+    outBox.innerHTML += `
+      <hr style="border:0; border-top:1px solid var(--border); margin:14px 0;">
+      <div style="background:#f1f5f9; padding:10px 14px; border-radius:6px; margin:8px 0;">
+        <small style="text-transform:uppercase; font-weight:700; color:var(--blue-accent); display:block;">Faculty Question</small>
+        <b>${esc(q)}</b>
+      </div>
+      <div id="diagFollowUpLoading" style="color:var(--text-muted); font-size:12px; padding:6px 0;">Thinking in real time…</div>
+    `;
+
+    try {
+      const context = JSON.stringify({ candidate: activeDiagStudent, inquiry: q });
+      const res = await CAMPUSIQ_AI.ask('faculty', context, [{ role: 'user', content: q }]);
+      const loader = document.getElementById('diagFollowUpLoading');
+      if (loader) loader.outerHTML = CAMPUSIQ_AI.renderMarkdown(res);
+    } catch (e) {
+      const loader = document.getElementById('diagFollowUpLoading');
+      if (loader) loader.innerHTML = `<span style="color:#be123c;">Error: ${esc(e.message)}</span>`;
+    }
+  }
+
+  // Hook up UI
+  $('#diagStudentSelect').addEventListener('change', e => renderStudentProgressDossier(e.target.value));
+  $('#diagDeptFilter').addEventListener('change', initDiagDropdown);
+  $('#diagQuickSearch').addEventListener('input', initDiagDropdown);
+  $('#btnRunQuickDiag').addEventListener('click', executeAIProgressAnalysis);
+  $('#btnExecuteAnalysis').addEventListener('click', executeAIProgressAnalysis);
+  $('#btnSendFollowUp').addEventListener('click', sendDiagFollowUp);
+  $('#diagFollowUpInput').addEventListener('keydown', e => { if (e.key === 'Enter') sendDiagFollowUp(); });
+
+  document.querySelectorAll('.focus-option-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+      document.querySelectorAll('.focus-option-btn').forEach(b => b.classList.remove('selected'));
+      btn.classList.add('selected');
+      activeFocus = btn.dataset.focus;
+    });
+  });
+
+  $('#btnApplyIntervention').addEventListener('click', () => {
+    if (!activeDiagStudent) return;
+    const s = activeDiagStudent;
+    T.unshift({
+      sid: s.id,
+      st: 1,
+      mentor: MN[s.d % MN.length],
+      type: 'AI Pedagogical Remediation Directive',
+      act: `Targeted remediation plan generated for ${s.name} (${s.id}). Focus: ${activeFocus}.`
+    });
+    iv();
+    alert(`Intervention successfully registered for ${s.name}! Navigating to Interventions Registry.`);
+    go(5);
+  });
+
+  // Faculty and Rooms logic
+  const FAC = [
+    ['Dr. R. Khanna', 'Professor & Head', 'CSE-AI', 'rkhanna', '+91 90000 10001', 'Cabin B-210', 'Wed 2:00–3:00 PM', 'Machine Learning • Faculty Mentor'],
+    ['Priya Menon', 'Assistant Professor', 'ECE', 'priya.menon', '+91 90000 10002', 'Cabin E-114', 'Tue 1:00–2:00 PM', 'VLSI • Embedded Systems'],
+    ['Prof. A. Iyer', 'Associate Professor', 'CSE-AI', 'a.iyer', '+91 90000 10003', 'Cabin B-212', 'Thu 11:00 AM–12:00 PM', 'Algorithms • Networks'],
+    ['Neha Sharma', 'Student Success Coordinator', 'MBA', 'neha.sharma', '+91 90000 10004', 'Cabin Admin-05', 'Thu 2:00–3:00 PM', 'Student Advising & Analytics'],
+    ['Prof. K. Rao', 'Professor', 'Mech', 'k.rao', '+91 90000 10005', 'Cabin M-102', 'Mon 3:00–4:00 PM', 'Thermodynamics & Fluid Dynamics'],
+    ['Dr. S. Banerjee', 'Associate Professor', 'Civil', 's.banerjee', '+91 90000 10006', 'Cabin C-108', 'Fri 10:00–11:00 AM', 'Structures & Surveying'],
+    ['Dr. T. Qureshi', 'Assistant Professor', 'ECE', 't.qureshi', '+91 90000 10007', 'Cabin E-116', 'Mon 11:00 AM–12:00 PM', 'Signals & Circuit Theory'],
+    ['Dr. M. Fernandes', 'Professor', 'MBA', 'm.fernandes', '+91 90000 10008', 'Cabin BS-201', 'Wed 10:00–11:00 AM', 'Finance & Analytics'],
+    ['Mr. V. Saxena', 'Placement Officer', 'Support', 'careercell', '+91 90000 10009', 'Cabin P-01', 'Thu 12:00–1:00 PM', 'Mock Interviews & Coding'],
+    ['Ms. L. Joshi', 'Lab Coordinator', 'Support', 'lab.coord', '+91 90000 10010', 'Lab Office L-00', 'Daily 9:00 AM–5:00 PM', 'Practical and Viva Scheduling']
+  ];
+
+  const ROOMS0 = [
+    { no: 'B-204', bld: 'Block B • 2F', type: 'Lecture Hall', cap: 60, svc: ['Lecture'], slots: [['09:00–10:00', 'Lecture', 'Machine Learning', 'Dr. R. Khanna'], ['11:00–12:00', 'Lecture', 'Algorithms', 'Prof. A. Iyer']], cl: ['Done', 'Cleaned 08:00'] },
+    { no: 'B-101', bld: 'Block B • 1F', type: 'Classroom', cap: 60, svc: ['Lecture'], slots: [['12:00–13:00', 'Lecture', 'Computer Networks', 'Ms. Sharma']], cl: ['Done', 'Cleaned 07:45'] },
+    { no: 'Lab 2', bld: 'Block B • 1F', type: 'Computer Lab', cap: 40, svc: ['Lecture', 'Practical', 'Viva'], slots: [['11:00–13:00', 'Practical', 'DBMS Lab', 'Dr. R. Khanna'], ['14:00–16:00', 'Practical', 'CSE-AI Sem 5 Practical Exam', 'Ms. L. Joshi']], cl: ['Due', 'Scheduled 13:30–14:00'] },
+    { no: 'Lab 4', bld: 'Block B • 1F', type: 'Coding Lab', cap: 40, svc: ['Practical'], slots: [['10:00–12:00', 'Practical', 'Coding Practice Lab', 'Mr. V. Saxena']], cl: ['Done', 'Cleaned 08:10'] },
+    { no: 'E-Lab 1', bld: 'Block E • 1F', type: 'VLSI Lab', cap: 30, svc: ['Practical', 'Viva'], slots: [['10:00–12:00', 'Practical', 'VLSI Practical', 'Priya Menon'], ['14:00–15:30', 'Viva', 'ECE Sem 5 Viva Exam', 'Dr. T. Qureshi']], cl: ['In progress', 'Housekeeping on site'] },
+    { no: 'W-1', bld: 'Mechanical Workshop', type: 'Workshop', cap: 35, svc: ['Practical'], slots: [['09:00–12:00', 'Practical', 'Manufacturing Workshop', 'Prof. K. Rao']], cl: ['Done', 'Cleaned 07:45'] },
+    { no: 'C-Survey', bld: 'Block C • GF', type: 'Survey Lab', cap: 30, svc: ['Practical', 'Viva'], slots: [['11:00–13:00', 'Practical', 'Surveying Practical', 'Dr. S. Banerjee'], ['15:00–16:00', 'Viva', 'Civil Sem 7 Viva', 'Dr. S. Banerjee']], cl: ['Due', 'Scheduled 13:30–14:00'] },
+    { no: 'V-1', bld: 'Admin Block • 1F', type: 'Viva Room', cap: 8, svc: ['Viva'], slots: [['10:00–13:00', 'Viva', 'CSE-AI Sem 5 Viva', 'Dr. R. Khanna & Prof. Iyer'], ['14:00–17:00', 'Viva', 'Mech Sem 6 Viva', 'Prof. K. Rao']], cl: ['Done', 'Cleaned 08:15'] },
+    { no: 'P-01', bld: 'Placement Cell', type: 'Mock Interview Suite', cap: 6, svc: ['Viva'], slots: [['16:00–17:00', 'Viva', 'Mock Interviews', 'Mr. V. Saxena']], cl: ['Done', 'Cleaned 08:30'] }
+  ];
+
+  let RM, RF = 'all';
+  function fac() {
+    const q = $('#fq').value.toLowerCase(), d = $('#fdp').value;
+    const L = FAC.filter(x => (!q || (x[0] + ' ' + x[7]).toLowerCase().includes(q)) && (!d || x[2] === d));
+    $('#fcn').textContent = L.length + ' Faculty Members';
+    $('#fg').innerHTML = L.map(x => `
+      <div class="c fc">
+        <div class="fa">${esc(x[0].replace(/^(Dr|Prof|Mr|Ms)\.\s*/, '').split(' ').map(w => w[0]).slice(0, 2).join(''))}</div>
+        <div style="min-width:0;">
+          <h3>${esc(x[0])}</h3>
+          <p class="sub" style="margin-bottom:4px;">${x[1]} • ${x[2]}</p>
+          <p style="font-size:12px; color:var(--text-muted);">${esc(x[7])}</p>
+          <a href="mailto:${x[3]}@campus.demo">✉ ${x[3]}@campus.demo</a>
+          <a href="tel:${x[4].replace(/\s/g, '')}">☎ ${x[4]}</a>
+          <p style="font-size:11px; color:var(--text-muted); margin-top:2px;">${x[5]} • Office Hours: ${x[6]}</p>
+        </div>
+      </div>
+    `).join('') || '<p class="sub">No faculty match.</p>';
+  }
+
+  function rms() {
+    const n = k => RM.filter(r => k === 'all' || (k === 'Cleaning due' ? r.cl[0] !== 'Done' : r.svc.includes(k))).length;
+    const L = RM.filter(r => RF === 'all' || (RF === 'Cleaning due' ? r.cl[0] !== 'Done' : r.svc.includes(RF)));
+    $('#rst').innerHTML = [
+      ['Total Facilities', RM.length, '#1d4ed8'],
+      ['Practical Labs', n('Practical'), '#6d28d9'],
+      ['Viva Chambers', n('Viva'), '#be123c'],
+      ['Cleaning Due', n('Cleaning due'), '#b45309']
+    ].map(k => `
+      <div class="c s3 kp">
+        <div><b style="color:${k[2]}">${k[1]}</b><span>${k[0]}</span></div>
+      </div>
+    `).join('');
+
+    $('#rch').innerHTML = ['all', 'Practical', 'Viva', 'Lecture', 'Cleaning due'].map(k => `
+      <button class="btn secondary" style="${RF === k ? 'background:var(--navy-900);color:#fff;' : ''}" data-rf="${k}">${k === 'all' ? 'All Rooms' : k} (${n(k)})</button>
+    `).join('');
+
+    $('#rtb').innerHTML = L.map(r => `
+      <tr>
+        <td><b>${r.no}</b><small>${r.type} • ${r.bld} • Cap: ${r.cap}</small></td>
+        <td>${r.svc.map(v => `<span class="pill badge-gap" style="margin-right:4px;">${v}</span>`).join('')}</td>
+        <td>${r.slots.map(t => `<div style="margin-bottom:4px;"><b>${t[0]}</b> • ${esc(t[2])}<small>${t[1]} • ${esc(t[3])}</small></div>`).join('')}</td>
+        <td>
+          <span class="pill ${r.cl[0] === 'Done' ? 'badge-star' : 'badge-decline'}">${r.cl[0]}</span>
+          <small>${r.cl[1]}</small>
+        </td>
+      </tr>
+    `).join('');
+
+    const V_arr = [];
+    RM.forEach(r => r.slots.forEach(t => { if (t[1] === 'Practical' || t[1] === 'Viva') V_arr.push([t[0], r.no, t[1], t[2], t[3]]); }));
+    V_arr.sort((a, b) => a[0].localeCompare(b[0]));
+    $('#vsch').innerHTML = V_arr.map(v => `
+      <div class="lr" style="padding:8px 0;border-top:1px solid var(--border);">
+        <span><b>${v[0]}</b> • Room ${v[1]} • ${esc(v[3])}</span>
+        <span><span class="pill badge-gap" style="margin-right:8px;">${v[2]}</span>${esc(v[4])}</span>
+      </div>
+    `).join('');
+  }
+
+  function init() {
+    RM = JSON.parse(JSON.stringify(ROOMS0));
+    sd = 9137;
+    W = .6;
+    CUT = 55;
+    S = Array.from({ length: 180 }, (_, i) => mk(i + 6));
+    const P = [
+      { name: 'Aarav Sharma', d: 0, sem: 5, att: 92, cgpa: 8.6, subj: [86, 82, 84], back: 0, lms: 81, certs: 1, extra: 2, coding: 34, apt: 41, intv: 40, tech: 46, mock: 0, trend: 2 },
+      { name: 'Meera Gupta', d: 1, sem: 5, att: 62, cgpa: 5.1, subj: [41, 38, 45], back: 2, lms: 39, certs: 0, extra: 0, coding: 31, apt: 40, intv: 37, tech: 33, mock: 0, trend: -4 },
+      { name: 'Rohan Verma', d: 2, sem: 6, att: 89, cgpa: 5.4, subj: [43, 40, 48], back: 1, lms: 46, certs: 3, extra: 3, coding: 78, apt: 81, intv: 73, tech: 79, mock: 3, trend: 1 },
+      { name: 'Ishita Nair', d: 3, sem: 7, att: 84, cgpa: 7.9, subj: [76, 70, 64], back: 0, lms: 72, certs: 2, extra: 2, coding: 68, apt: 72, intv: 66, tech: 70, mock: 2, trend: -11 },
+      { name: 'Karan Malhotra', d: 4, sem: 6, att: 95, cgpa: 9.1, subj: [91, 88, 90], back: 0, lms: 90, certs: 4, extra: 3, coding: 82, apt: 88, intv: 85, tech: 84, mock: 3, trend: 3 },
+      { name: 'Fatima Sheikh', d: 0, sem: 4, att: 78, cgpa: 7.4, subj: [72, 69, 75], back: 0, lms: 70, certs: 3, extra: 1, coding: 74, apt: 68, intv: 71, tech: 77, mock: 2, trend: 4 }
+    ].map((p, i) => ({ id: 'CU' + String(2401 + i), ...p }));
+    S.unshift(...P);
+    S.forEach(calc);
+
+    const f = n => S.find(s => s.name === n).id;
+    T = [
+      [f('Aarav Sharma'), 0],
+      [f('Meera Gupta'), 1],
+      [f('Rohan Verma'), 2],
+      [f('Ishita Nair'), 3],
+      [f('Karan Malhotra'), 0]
+    ].map((x, i) => ({ sid: x[0], st: x[1], mentor: MN[i] })).map(t => ({
+      ...t,
+      type: plan(S.find(s => s.id === t.sid))[0],
+      act: plan(S.find(s => s.id === t.sid))[1]
+    }));
+
+    tabs();
+    ov();
+    initDiagDropdown();
+    stu();
+    eng();
+    sgs();
+    iv();
+    ins();
+    fac();
+    rms();
+  }
+
+  // Event Listeners
+  document.addEventListener('click', e => {
+    const t = e.target;
+    const f = t.closest('[data-f]');
+    const o = t.closest('[data-o]');
+    const g = t.closest('[data-g]');
+    const k = t.closest('[data-t]');
+    const rf = t.closest('[data-rf]');
+    const pr = t.closest('[data-prompt]');
+
+    if (f) { F = F === f.dataset.f ? null : f.dataset.f; map(); dn(); }
+    else if (o) op(o.dataset.o);
+    else if (g) { G = g.dataset.g; sgs(); }
+    else if (k) { const x = T[+k.dataset.t]; x.st = Math.min(3, x.st + 1); iv(); }
+    else if (rf) { RF = rf.dataset.rf; rms(); }
+    else if (pr) { go(7); sendChat(pr.dataset.prompt); }
+    else if (t.dataset.i !== undefined && t.closest('#map')) op(S[+t.dataset.i].id);
+  });
+
+  $('#map').addEventListener('mousemove', e => {
+    const T2 = $('#tt'), i = e.target.dataset.i;
+    if (i === undefined) { T2.style.display = 'none'; return; }
+    const s = S[i];
+    T2.textContent = `${s.name} (${s.id}) • ${SG[s.s][0]} • A${s.A} P${s.P}`;
+    T2.style.display = 'block';
+    T2.style.left = e.clientX + 14 + 'px';
+    T2.style.top = e.clientY + 14 + 'px';
+  });
+  $('#map').addEventListener('mouseleave', () => $('#tt').style.display = 'none');
+
+  $('#fd').innerHTML = '<option value="">All Departments</option>' + DP.map((d, i) => `<option value="${i}">${d}</option>`).join('');
+  $('#fs').innerHTML = '<option value="">All Segments</option>' + Object.keys(SG).map(k => `<option value="${k}">${SG[k][0]}</option>`).join('');
+  ['q', 'fd', 'fs'].forEach(i => $('#' + i).addEventListener('input', stu));
+
+  $('#sw').addEventListener('input', e => { W = e.target.value / 100; S.forEach(calc); init(); });
+  $('#scut').addEventListener('input', e => { CUT = +e.target.value; S.forEach(calc); init(); });
+
+  $('#wi').innerHTML = [['m', 'Subject Marks', 100], ['a', 'Attendance %', 100], ['c', 'Coding', 100], ['p', 'Aptitude', 100], ['k', 'Mock Interviews (60d)', 4]].map(x => `
+    <div class="lr" style="margin-top:8px"><span>${x[1]}</span></div>
+    <input type="range" min="0" max="${x[2]}" value="${V[x[0]]}" data-k="${x[0]}" style="width:100%;">
+  `).join('');
+  $('#wi').addEventListener('input', e => { V[e.target.dataset.k] = +e.target.value; wo(); });
+
+  $('#chatForm').addEventListener('submit', e => {
+    e.preventDefault();
+    sendChat($('#chatInput').value);
+    $('#chatInput').value = '';
+  });
+
+  $('#fq').addEventListener('input', fac);
+  $('#fdp').addEventListener('input', fac);
+  $('#rs').onclick = () => { init(); $('#sw').value = 60; $('#scut').value = 55; $('#dr').classList.remove('on'); };
+  document.addEventListener('keydown', e => { if (e.key === 'Escape') $('#dr').classList.remove('on'); });
+
+  CAMPUSIQ_AI.badge($('#headerAiBadge'));
+  CAMPUSIQ_AI.badge($('#aiBadge'));
+
+  init();
+</script>
+</body>
+</html>
